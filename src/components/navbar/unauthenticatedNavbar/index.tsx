@@ -7,8 +7,8 @@ export const UnauthenticatedNavbar = () => {
     const pathname = usePathname()
 
     const UNATHENTICATED_NAVBAR_MENU = [
-        { text: "Register", route: "/register" },
-        { text: "Login", route: "/login" },
+        { text: "Register", route: "auth/register" },
+        { text: "Login", route: "auth/login" },
     ];
 
     return (
