@@ -3,8 +3,8 @@ import { UserDashboard } from "@/components/dashboard/userDashboard";
 
 const Dashboard: React.FC = () => {
     return (
-        <div>
-            <LabelDashboard />
+        <div className="">
+            <UserDashboard />
         </div>
     )
 }

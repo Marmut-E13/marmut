@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import MarmutPNG from '@/images/marmut2.png'
 import Image from "next/image";
+import UserDashboard from "@/components/dashboard/userDashboard";
 
 const Auth: React.FC = () => {
     const router = useRouter();
