@@ -17,6 +17,10 @@ export const SongRow: React.FC<SongRowProps> = ({
     const router = useRouter()
     const pathname = usePathname()
 
+    const handlePlay = () => {
+        router.push('/play/dummy')
+    }
+
     const dummyKontens: KontenProps[] = [
         {
           id: "1",
@@ -54,7 +58,7 @@ export const SongRow: React.FC<SongRowProps> = ({
                     <HiOutlineInformationCircle size={21}/> 
                 </button>
 
-                <button className="bg-marmut-brown-500 text-marmut-light-brown-000 p-[7px] rounded-md">
+                <button className="bg-marmut-brown-500 text-marmut-light-brown-000 p-[7px] rounded-md" onClick={() => handlePlay()}>
                     <PiPlay size={19}/>
                 </button>
 
