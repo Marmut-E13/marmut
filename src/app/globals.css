@@ -8,9 +8,11 @@
 :root{
 }
 
-body {
-  font-family: 'Lato', 'sans-serif';
-  background-color: #F5F5F5;
 
-  
+body {
+  .lato-regular {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 }

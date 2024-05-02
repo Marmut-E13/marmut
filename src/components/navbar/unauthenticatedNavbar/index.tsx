@@ -12,22 +12,13 @@ export const UnauthenticatedNavbar = () => {
     ];
 
     return (
-        <div className="flex flex-row w-screen bg-stonks-900 z-[999] fixed px-5 py-3 justify-between items-center">
-            <text className="select-none text-stonks-100 font-bold">Marmut-E13</text>
+        <div className="flex flex-row w-screen bg-marmut-dark-green-300 z-[999] fixed px-5 py-3 justify-between items-center">
+            <text className="select-none text-marmut-100 font-bold text-[18px]">Marmut-E13</text>
 
-            <div className="flex flex-row gap-3">
-                {UNATHENTICATED_NAVBAR_MENU.map(({text, route}, key) => (
-                    <div className="flex flex-col select-none" key={key}>
-                        <div className={`${pathname == route ? 'text-[#7698c8] font-semibold' : 'text-stonks-000'} text-[14px] flex px-1 py-1 cursor-pointer`} onClick={() => {router.push(route)}}>
-                            {text}
-                        </div>
-
-                        {pathname == route && <div className="h-[2px] bg-[#7698c8] rounded-md"></div>}
-                </div>
-                ))}
+            <div className="flex flex-row gap-3 text-marmut-000">
+                <button className="">Login</button>
+                <button className="bg-marmut-brown-700 px-3 py-[6px] rounded-lg">Register</button>
             </div>
-
-
         </div>
     )
 }
