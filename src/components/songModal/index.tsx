@@ -34,7 +34,6 @@ export const SongModal: React.FC<ModalProps> = ({
                             dropdownValue={dropdownValue}
                             setDropdownValue={setDropdownValue}
                             options={[{display: 'Shades of cool - Lana del Rey', value: 'b'}, {display: 'Tomerrow never came - Lana del Rey', value: 'c'}]}
-
                         />
                     </div>
 

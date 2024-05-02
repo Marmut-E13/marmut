@@ -75,6 +75,8 @@ const Playlist: React.FC = () => {
                         <PlaylistRow key={key} data={props}/>
                     ))}
                 </div>
+
+                {/* <div className="text-center w-full justify-center flex">Maaf and belum memiliki playlist :(</div> */}
             </main>
             
             <div>

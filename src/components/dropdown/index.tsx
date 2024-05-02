@@ -28,7 +28,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         <div className='border-[2px] rounded-md border-marmut-dark-green-300 relative min-w-[110px]'>
             <div className="flex flex-row items-center justify-between px-3 py-[6px] cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
                 <div className={`${getDisplay(dropdownValue) == null && "text-marmut-300"} text-[16px] font-light`}>
-                    {getDisplay(dropdownValue) == null ? `Select song` : 
+                    {getDisplay(dropdownValue) == null ? `Select playlist` : 
                     <text className="flex flex-row gap-2 items-center">
                         {getDisplay(dropdownValue)}
                     </text>}

@@ -62,9 +62,9 @@ export const SongRow: React.FC<SongRowProps> = ({
                     <PiPlay size={19}/>
                 </button>
 
-                <button className="bg-red-600 text-red-100 p-[7px] rounded-md">
+                {/* <button className="bg-red-600 text-red-100 p-[7px] rounded-md">
                     <HiOutlineTrash size={21}/>
-                </button>
+                </button> */}
             </div>
         </div>
     )

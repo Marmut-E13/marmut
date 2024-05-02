@@ -132,10 +132,10 @@ const PlaylistDetail: React.FC = () => {
             </main>
 
             <div>
-                <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md" onClick={open}>
+                {/* <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md" onClick={open}>
                     <HiOutlinePlusSm size={23}/>
                     <text>Tambah Lagu</text>
-                </button>
+                </button> */}
             </div>
         </div>
 
