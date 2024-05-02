@@ -1,11 +1,14 @@
 "use client"
 
-import { PlaylistRow } from "@/components";
+import { PlaylistModal, PlaylistRow } from "@/components";
 import { UserPlaylistProps } from "@/types/playlist";
 import { useEffect } from "react";
 import { HiOutlinePlusSm } from "react-icons/hi";
+import { useDisclosure } from "react-use-disclosure";
 
 const Playlist: React.FC = () => {
+    const { isOpen, open, close } = useDisclosure(false);
+
 
     const dummyData: UserPlaylistProps[] = [
         {
@@ -40,6 +43,12 @@ const Playlist: React.FC = () => {
 
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-4">
+            <PlaylistModal 
+                isOpen={isOpen}
+                onClose={close}
+                primaryButtonCallback={() => {}}
+            />
+
             <text className="flex text-2xl font-bold">User Playlist</text>
 
             <main className="flex flex-col gap-[10px] w-full">
@@ -56,7 +65,7 @@ const Playlist: React.FC = () => {
                         <text className="font-semibold text-[18px]">Total Durasi</text>
                     </div>
 
-                    <div className="col-span-1 flex-row items-center px-2">
+                    <div className="col-span-1 flex-row items-center px-2 text-center">
                         <text className="font-semibold text-[18px]">Action</text>
                     </div>
                 </div>
@@ -69,7 +78,7 @@ const Playlist: React.FC = () => {
             </main>
             
             <div>
-                <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md">
+                <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md" onClick={open}>
                     <HiOutlinePlusSm size={23}/>
                     <text>Tambah playlist</text>
                 </button>

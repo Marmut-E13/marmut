@@ -99,7 +99,7 @@ const PlaylistDetail: React.FC = () => {
             </div>
 
             <main className="flex flex-col gap-[10px] w-full">
-                <div className="grid grid-cols-6 px-3">
+                <div className="grid grid-cols-6 px-[10px]">
                     <div className="col-span-2 flex-row items-center px-2">
                         <text className="font-semibold text-[18px]">Judul Lagu</text>
                     </div>

@@ -35,7 +35,7 @@ export const SongRow: React.FC<SongRowProps> = ({
     ];
 
     return (
-        <div className="grid grid-cols-6 w-full bg-marmut-green-200 p-[10px] hover:bg-marmut-green-400 text-marmut-000 font-medium rounded-md items-center">
+        <div className="grid grid-cols-6 w-full bg-marmut-green-400 p-[10px] hover:bg-marmut-green-600 text-marmut-000 font-medium rounded-md items-center">
             <div className="col-span-2 flex-row items-center px-2">
                 <text>Ultaviolence</text>
             </div>
