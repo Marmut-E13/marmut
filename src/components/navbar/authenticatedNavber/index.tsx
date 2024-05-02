@@ -10,7 +10,7 @@ export const AuthenticatedNavbar: React.FC = () => {
     }
 
     return (
-        <div className="flex flex-row w-screen bg-stonks-900 z-[999] fixed px-5 py-3 justify-between items-center">
+        <div className="flex flex-row w-screen bg-marmut-green-900 z-[999] fixed px-5 py-3 justify-between items-center">
             <button type="button" className="btn btn-danger" onClick={handleLogout}>Logout</button>
         </div>
     )

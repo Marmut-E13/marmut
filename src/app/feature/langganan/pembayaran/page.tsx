@@ -27,28 +27,28 @@ const Paket: React.FC = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-screen bg-gradient-to-b from-marmut-100 to-marmut-200">
             <form onSubmit={handleSubmit} className="w-[600px] bg-white rounded-xl shadow-md p-8 flex flex-col gap-6">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-2xl font-bold">Langganan Paket</h1>
+                    <h1 className="text-3xl font-bold text-marmut-green-700">Langganan Paket</h1>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <h2 className="text-lg font-semibold">Informasi Paket yang Ingin Dibeli:</h2>
+                    <h2 className="text-lg font-semibold text-marmut-green-700">Informasi Paket yang Ingin Dibeli:</h2>
                     <table className="w-full">
                         <tbody>
                         <tr>
-                            <td className="border border-stonks-700 rounded-lg">Jenis</td>
-                            <td className="border border-stonks-700 rounded-lg">{selectedPackage}</td>
+                            <td className="rounded-lg p-3 text-marmut-green-700">Jenis</td>
+                            <td className="rounded-lg p-3">1 Bulan</td>
                         </tr>
                         <tr>
-                            <td className="border border-stonks-700 rounded-lg">Harga</td>
-                            <td className="border border-stonks-700 rounded-lg">Rp54.900</td> {/* You can replace this with dynamic price based on selected package */}
+                            <td className="rounded-lg p-3 text-marmut-green-700">Harga</td>
+                            <td className="rounded-lg p-3">Rp54.900</td> {/* Anda dapat menggantinya dengan harga dinamis berdasarkan paket yang dipilih */}
                         </tr>
                         </tbody>
                     </table>
                     <div className="flex flex-col">
-                        <label htmlFor="paymentMethod" className="text-lg font-semibold">Metode Pembayaran:</label>
-                        <select id="paymentMethod" name="paymentMethod" value={selectedPaymentMethod} onChange={handlePaymentMethodChange} className="border border-stonks-700 rounded-lg py-2 px-4">
+                        <label htmlFor="paymentMethod" className="text-lg font-semibold text-marmut-green-700">Metode Pembayaran:</label>
+                        <select id="paymentMethod" name="paymentMethod" value={selectedPaymentMethod} onChange={handlePaymentMethodChange} className="border border-marmut-green-700 rounded-lg py-2 px-4">
                             <option value="">Pilih metode pembayaran</option>
                             <option value="transfer_bank">Transfer Bank</option>
                             <option value="kartu_kredit">Kartu Kredit</option>
@@ -56,7 +56,7 @@ const Paket: React.FC = () => {
                         </select>
                     </div>
                 </div>
-                <button type="submit" className="bg-stonks-600 text-white py-2 px-4 rounded-md mt-4">Submit</button>
+                <button type="submit" className="bg-marmut-green-700 text-white py-2 px-4 rounded-md mt-4 hover:bg-marmut-green-800 transition-colors">Submit</button>
             </form>
         </div>
     )

@@ -29,43 +29,43 @@ const Paket: React.FC = () => {
             <form onSubmit={handleSubmit} className="w-[600px] bg-white rounded-xl shadow-md p-8 flex flex-col gap-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-2xl font-bold">Langganan Paket</h1>
-                    <button onClick={handleTransactionHistory} className="bg-stonks-600 text-white py-2 px-4 rounded-md">Riwayat Transaksi</button>
+                    <button onClick={handleTransactionHistory} className="bg-marmut-light-brown-900 text-white py-1 px-2 rounded-md text-sm">Riwayat Transaksi</button>
                 </div>
-                <table className="w-full">
+                <table className="w-full bg-marmut-50 border border-marmut-green-700 rounded-xl">
                     <thead>
-                    <tr>
-                        <th className="border border-stonks-700 rounded-lg">Paket</th>
-                        <th className="border border-stonks-700 rounded-lg">Harga</th>
-                        <th className="border border-stonks-700 rounded-lg"></th>
+                    <tr className="bg-marmut-green-600 text-white">
+                        <th className="p-3 rounded-tl-xl">Paket</th>
+                        <th className="p-3">Harga</th>
+                        <th className="p-3 rounded-tr-xl"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td className="border border-stonks-700 rounded-lg">1 bulan</td>
-                        <td className="border border-stonks-700 rounded-lg">Rp54.900</td>
-                        <td className="border border-stonks-700 rounded-lg">
-                            <button onClick={() => handleSubscription("1 bulan")} className="bg-stonks-600 text-white py-2 px-4 rounded-md">Beli Paket</button>
+                        <td className="p-3">1 bulan</td>
+                        <td className="p-3">Rp54.900</td>
+                        <td className="p-3">
+                            <button onClick={() => handleSubscription("1 bulan")} className="bg-marmut-light-brown-900 text-white py-1 px-2 rounded-md text-sm">Beli</button>
+                        </td>
+                    </tr>
+                    <tr className="bg-marmut-100">
+                        <td className="p-3">3 bulan</td>
+                        <td className="p-3">Rp154.700</td>
+                        <td className="p-3">
+                            <button onClick={() => handleSubscription("3 bulan")} className="bg-marmut-light-brown-900 text-white py-1 px-2 rounded-md text-sm">Beli</button>
                         </td>
                     </tr>
                     <tr>
-                        <td className="border border-stonks-700 rounded-lg">3 bulan</td>
-                        <td className="border border-stonks-700 rounded-lg">Rp154.700</td>
-                        <td className="border border-stonks-700 rounded-lg">
-                            <button onClick={() => handleSubscription("3 bulan")} className="bg-stonks-600 text-white py-2 px-4 rounded-md">Beli Paket</button>
+                        <td className="p-3">6 bulan</td>
+                        <td className="p-3">Rp299.400</td>
+                        <td className="p-3">
+                            <button onClick={() => handleSubscription("6 bulan")} className="bg-marmut-light-brown-900 text-white py-1 px-2 rounded-md text-sm">Beli</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td className="border border-stonks-700 rounded-lg">6 bulan</td>
-                        <td className="border border-stonks-700 rounded-lg">Rp299.400</td>
-                        <td className="border border-stonks-700 rounded-lg">
-                            <button onClick={() => handleSubscription("6 bulan")} className="bg-stonks-600 text-white py-2 px-4 rounded-md">Beli Paket</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="border border-stonks-700 rounded-lg">1 tahun</td>
-                        <td className="border border-stonks-700 rounded-lg">Rp549.000</td>
-                        <td className="border border-stonks-700 rounded-lg">
-                            <button onClick={() => handleSubscription("1 tahun")} className="bg-stonks-600 text-white py-2 px-4 rounded-md">Beli Paket</button>
+                    <tr className="bg-marmut-100">
+                        <td className="p-3">1 tahun</td>
+                        <td className="p-3">Rp549.000</td>
+                        <td className="p-3">
+                            <button onClick={() => handleSubscription("1 tahun")} className="bg-marmut-light-brown-900 text-white py-1 px-2 rounded-md text-sm">Beli</button>
                         </td>
                     </tr>
                     </tbody>

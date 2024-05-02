@@ -9,15 +9,15 @@ const Auth: React.FC = () => {
     const pathname = usePathname()
 
     const AUTH_OPTIONS = [
-        { text: "Register", route: "/register" },
-        { text: "Login", route: "/login" },
+        { text: "Register", route: "auth/register" },
+        { text: "Login", route: "auth/login" },
     ];
 
     return (
         <div className="flex h-screen flex-col items-center justify-center gap-4">
             
         <div className="flex flex-col gap-3 items-center">
-            <text className="text-4xl font-bold font-domine">Marmut-E13</text>
+            <text className="text-4xl font-bold">Marmut-E13</text>
 
             <Image
                 src={MarmutPNG}

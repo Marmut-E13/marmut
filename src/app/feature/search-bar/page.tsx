@@ -25,7 +25,6 @@ const SearchPage: React.FC = () => {
 
     const handleViewDetail = (title: string, type: string) => {
         console.log(`View detail of ${type}: ${title}`);
-
     };
 
     return (
@@ -39,28 +38,28 @@ const SearchPage: React.FC = () => {
                     placeholder="Search..."
                     className="flex-grow focus:outline-none"
                 />
-                <button onClick={handleSearch} className="bg-stonks-600 text-white py-2 px-4 rounded-md ml-2">Search</button>
+                <button onClick={handleSearch} className="bg-marmut-green-600 text-white py-2 px-4 rounded-md ml-2">Search</button>
             </div>
             {searchResults.length === 0 ? (
                 <p>No results found</p>
             ) : (
-                <table className="w-full border-collapse border border-stonks-700">
+                <table className="w-full border-collapse border">
                     <thead>
-                    <tr className="bg-stonks-600 text-white">
-                        <th className="border border-stonks-700 p-3">Tipe</th>
-                        <th className="border border-stonks-700 p-3">Judul lagu</th>
-                        <th className="border border-stonks-700 p-3">Oleh</th>
-                        <th className="border border-stonks-700 p-3">Detail</th>
+                    <tr className="bg-marmut-green-600 text-white">
+                        <th className="border p-3">Tipe</th>
+                        <th className="border p-3">Judul lagu</th>
+                        <th className="border p-3">Oleh</th>
+                        <th className="border p-3">Detail</th>
                     </tr>
                     </thead>
                     <tbody>
                     {searchResults.map((item, index) => (
                         <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
-                            <td className="border border-stonks-700 p-3">{item.title}</td>
-                            <td className="border border-stonks-700 p-3">{item.type}</td>
-                            <td className="border border-stonks-700 p-3">{item.artist || item.podcaster || item.creator}</td>
-                            <td className="border border-stonks-700 p-3">
-                                <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-stonks-600 text-white py-1 px-2 rounded-md mr-2">View</button>
+                            <td className="border p-3">{item.title}</td>
+                            <td className="border p-3">{item.type}</td>
+                            <td className="border p-3">{item.artist || item.podcaster || item.creator}</td>
+                            <td className="border p-3">
+                                <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">View</button>
                             </td>
                         </tr>
                     ))}
