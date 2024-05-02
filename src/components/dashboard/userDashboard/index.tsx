@@ -1,6 +1,3 @@
-import userImgPNG from '@/images/userimg.png'
-import Image from "next/image";
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 interface UserDetails {
