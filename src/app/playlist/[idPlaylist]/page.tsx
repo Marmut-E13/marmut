@@ -1,14 +1,17 @@
 "use client"
 
-import { SongRow } from "@/components";
+import { SongModal, SongRow } from "@/components";
 import { KontenProps, SongProps, UserPlaylistProps } from "@/types/playlist";
 import { usePathname, useRouter } from "next/navigation";
-import { HiArrowLeft } from "react-icons/hi";
+import { HiArrowLeft, HiOutlinePlusSm } from "react-icons/hi";
 import { LuShuffle } from "react-icons/lu";
+import { useDisclosure } from "react-use-disclosure";
 
 const PlaylistDetail: React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
+
+    const { isOpen, open, close } = useDisclosure(false);
 
     const handleBack = () => {
         router.back()
@@ -44,7 +47,11 @@ const PlaylistDetail: React.FC = () => {
 
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-4">
-            {/* <text className="flex text-2xl font-bold">User Playlist Detail</text> */}
+            <SongModal 
+                isOpen={isOpen}
+                onClose={close}
+                primaryButtonCallback={() => {}}
+            />
 
             <div className="flex flex-col w-full items-start gap-3">
                 <div className="flex flex-col">
@@ -123,6 +130,13 @@ const PlaylistDetail: React.FC = () => {
                     ))}
                 </div>
             </main>
+
+            <div>
+                <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md" onClick={open}>
+                    <HiOutlinePlusSm size={23}/>
+                    <text>Tambah Lagu</text>
+                </button>
+            </div>
         </div>
 
     )

@@ -45,13 +45,7 @@ export const PlaylistModal: React.FC<ModalProps> = ({
                         {/* Update */}
                         {/* nanti ada ternary operatornya */}
                     </button>
-
-
                 </main>
-
-
-
-               
             </div>
         </div>
     )
