@@ -1,67 +1,74 @@
 "use client"
 
 import { useState } from "react";
-import { useRouter } from "next/router";
 
-const SearchBar: React.FC = () => {
-    const router = useRouter();
+const SearchPage: React.FC = () => {
     const [query, setQuery] = useState<string>("");
     const [searchResults, setSearchResults] = useState<any[]>([]); // Menyimpan hasil pencarian
 
     const handleSearch = () => {
-        // Lakukan pencarian berdasarkan query
-        // Misalnya, Anda dapat mengirimkan permintaan ke server dengan query sebagai parameter
-        // Kemudian, simpan hasil pencarian ke dalam state searchResults
-        // Contoh sederhana: setSearchResults([...dummySearchResults]); // Dummy results for demonstration
-
-        // Untuk alasan demonstrasi, saya akan menggunakan data dummy
-        const dummySearchResults = [
-            { type: "Song", title: "Song1", artist: "Artist1" },
-            { type: "Podcast", title: "Podcast1", podcaster: "Podcaster1" },
-            { type: "Playlist", title: "Playlist1", creator: "Creator1" },
-            // Tambahkan hasil pencarian lainnya di sini
+        const dummyData = [
+            { type: "Song", title: "Song 1", artist: "Artist 1" },
+            { type: "Song", title: "Song 2", artist: "Artist 2" },
+            { type: "Podcast", title: "Podcast 1", podcaster: "Podcaster 1" },
+            { type: "Podcast", title: "Podcast 2", podcaster: "Podcaster 2" },
+            { type: "User Playlist", title: "Playlist 1", creator: "Creator 1" },
+            { type: "User Playlist", title: "Playlist 2", creator: "Creator 2" },
         ];
 
-        const filteredResults = dummySearchResults.filter(item =>
+        const results = dummyData.filter(item =>
             item.title.toLowerCase().includes(query.toLowerCase())
         );
-        setSearchResults(filteredResults);
+
+        setSearchResults(results);
     };
 
-    const handleViewContent = (type: string, title: string) => {
-        // Arahkan pengguna ke halaman detail konten berdasarkan tipe dan judulnya
-        router.push(`/${type.toLowerCase()}/${title}`);
+    const handleViewDetail = (title: string, type: string) => {
+        console.log(`View detail of ${type}: ${title}`);
+
     };
 
     return (
-        <div className="flex items-center">
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Query"
-                className="border border-stonks-700 rounded-l-md py-2 px-3 focus:outline-none"
-            />
-            <button onClick={handleSearch} className="bg-stonks-600 text-white py-2 px-4 rounded-r-md">CARI</button>
-            {searchResults.length > 0 && (
-                <div className="mt-4">
-                    <h2 className="text-lg font-semibold">Hasil Pencarian:</h2>
-                    <ul className="mt-2">
-                        {searchResults.map((result, index) => (
-                            <li key={index} className="mt-1">
-                                <span className="text-blue-600 cursor-pointer" onClick={() => handleViewContent(result.type, result.title)}>
-                                    {result.title} ({result.type})
-                                </span>
-                                {result.type === "Song" && <span> oleh {result.artist}</span>}
-                                {result.type === "Podcast" && <span> oleh {result.podcaster}</span>}
-                                {result.type === "Playlist" && <span> oleh {result.creator}</span>}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+        <div className="p-4">
+            <h1 className="text-2xl font-bold mb-4">Search</h1>
+            <div className="flex items-center border border-gray-300 rounded-md p-2 mb-4">
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="flex-grow focus:outline-none"
+                />
+                <button onClick={handleSearch} className="bg-stonks-600 text-white py-2 px-4 rounded-md ml-2">Search</button>
+            </div>
+            {searchResults.length === 0 ? (
+                <p>No results found</p>
+            ) : (
+                <table className="w-full border-collapse border border-stonks-700">
+                    <thead>
+                    <tr className="bg-stonks-600 text-white">
+                        <th className="border border-stonks-700 p-3">Tipe</th>
+                        <th className="border border-stonks-700 p-3">Judul lagu</th>
+                        <th className="border border-stonks-700 p-3">Oleh</th>
+                        <th className="border border-stonks-700 p-3">Detail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {searchResults.map((item, index) => (
+                        <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
+                            <td className="border border-stonks-700 p-3">{item.title}</td>
+                            <td className="border border-stonks-700 p-3">{item.type}</td>
+                            <td className="border border-stonks-700 p-3">{item.artist || item.podcaster || item.creator}</td>
+                            <td className="border border-stonks-700 p-3">
+                                <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-stonks-600 text-white py-1 px-2 rounded-md mr-2">View</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );
 }
 
-export default SearchBar;
+export default SearchPage;

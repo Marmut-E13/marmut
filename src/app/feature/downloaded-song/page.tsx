@@ -11,19 +11,18 @@ const DownloadedSongs: React.FC = () => {
             artist: "Artist1",
             downloadDate: "20/02/2024"
         },
-        // Tambahkan data lagu yang diunduh lainnya di sini
+
     ]);
 
     const handleViewSong = (title: string) => {
-        // Arahkan pengguna ke halaman detail lagu dengan judul yang dipilih
         router.push(`/songs/${title}`);
+
     };
 
     const handleDeleteSong = (title: string) => {
-        // Menghapus lagu dari daftar lagu yang diunduh
         const updatedSongs = downloadedSongs.filter(song => song.title !== title);
         setDownloadedSongs(updatedSongs);
-        // Menampilkan pesan sukses
+
         alert(`Berhasil menghapus Lagu dengan judul '${title}' dari daftar unduhan!`);
     };
 
