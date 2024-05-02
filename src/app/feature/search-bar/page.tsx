@@ -8,16 +8,16 @@ const SearchPage: React.FC = () => {
 
     const handleSearch = () => {
         const dummyData = [
-            { type: "Song", title: "Song 1", artist: "Artist 1" },
-            { type: "Song", title: "Song 2", artist: "Artist 2" },
-            { type: "Podcast", title: "Podcast 1", podcaster: "Podcaster 1" },
-            { type: "Podcast", title: "Podcast 2", podcaster: "Podcaster 2" },
-            { type: "User Playlist", title: "Playlist 1", creator: "Creator 1" },
-            { type: "User Playlist", title: "Playlist 2", creator: "Creator 2" },
+            { type: "Song", title: "Happy Mood", artist: "Medey" },
+            { type: "Song", title: "Tuturututu", artist: "Hundy" },
+            { type: "Podcast", title: "His Crazy", podcaster: "Frezy" },
+            { type: "Podcast", title: "Gil Crush", podcaster: "Sally" },
+            { type: "User Playlist", title: "Sad", creator: "Uni" },
+            { type: "User Playlist", title: "My Love", creator: "Sabrina" },
         ];
 
         const results = dummyData.filter(item =>
-            item.title.toLowerCase().includes(query.toLowerCase())
+            item.type.toLowerCase().includes(query.toLowerCase()),
         );
 
         setSearchResults(results);
@@ -41,7 +41,7 @@ const SearchPage: React.FC = () => {
                 <button onClick={handleSearch} className="bg-marmut-green-600 text-white py-2 px-4 rounded-md ml-2">Search</button>
             </div>
             {searchResults.length === 0 ? (
-                <p>No results found</p>
+                <p>Maaf, pencarian untuk "{query}" tidak ditemukan</p>
             ) : (
                 <table className="w-full border-collapse border">
                     <thead>
@@ -55,8 +55,8 @@ const SearchPage: React.FC = () => {
                     <tbody>
                     {searchResults.map((item, index) => (
                         <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
-                            <td className="border p-3">{item.title}</td>
                             <td className="border p-3">{item.type}</td>
+                            <td className="border p-3">{item.title}</td>
                             <td className="border p-3">{item.artist || item.podcaster || item.creator}</td>
                             <td className="border p-3">
                                 <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">View</button>
