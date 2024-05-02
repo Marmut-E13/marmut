@@ -28,6 +28,7 @@ const config: Config = {
 
         'danger-100': '#E60000',
 
+        'marmut-green-000': '#808960',
         'marmut-green-100': '#707b4c',
         'marmut-green-200': '#606c38',
         'marmut-green-300': '#606c38',

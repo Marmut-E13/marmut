@@ -12,8 +12,8 @@ export const UnauthenticatedNavbar = () => {
     ];
 
     return (
-        <div className="flex flex-row w-screen bg-stonks-900 z-[999] fixed px-5 py-3 justify-between items-center">
-            <text className="select-none text-stonks-100 font-bold">Marmut-E13</text>
+        <div className="flex flex-row w-screen bg-marmut-dark-green-300 z-[999] fixed px-5 py-3 justify-between items-center">
+            <text className="select-none text-marmut-100 font-bold">Marmut-E13</text>
 
             <div className="flex flex-row gap-3">
                 {UNATHENTICATED_NAVBAR_MENU.map(({text, route}, key) => (

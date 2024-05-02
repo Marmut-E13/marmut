@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar, UnauthenticatedNavbar } from "@/components/navbar";
 
@@ -18,7 +17,7 @@ export default function RootLayout({
       <body>
         <Navbar />
 
-        <main  className="">
+        <main className="">
           {children}
         </main>
       </body>
