@@ -18,9 +18,8 @@ export const AuthenticatedNavbar: React.FC = () => {
                     <button className="hover:bg-marmut-green-000 py-3 px-2">Dashboard</button>  
                     <button className="hover:bg-marmut-green-000 py-3 px-2">Chart</button>
                     <button className="hover:bg-marmut-green-000 py-3 px-2">Playlist</button>
-                    <button className="hover:bg-marmut-green-000 py-3 px-2">Subscribe</button>               
-                    <button className="hover:bg-marmut-green-000 py-3 px-2">Download</button>               
-                    <button className="hover:bg-marmut-green-000 py-3 px-2">Manage</button>
+                    <button className="hover:bg-marmut-green-000 py-3 px-2">Subscribe</button>                              
+                    {/* <button className="hover:bg-marmut-green-000 py-3 px-2">Manage</button> */}
                     
                     
                     {/* <div className= "flex-col absolute top-[105%] w-full right-[220px] items-start max-w-[100px] overflow-y-auto rounded-b-md transition-all duration-300 text-black">
@@ -43,15 +42,13 @@ export const AuthenticatedNavbar: React.FC = () => {
                         </div>
                     
                     </div> */}
+                    <button className="bg-marmut-brown-700 px-3 py-[6px] rounded-lg text-marmut-000">Logout</button>
                 </div>
 
                 <div className="py-3">
                     <input placeholder="Search" className="rounded-md px-1"/>  
                 </div>
-
             </div>
-
-           
         </div>
     )
 }
