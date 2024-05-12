@@ -1,26 +1,26 @@
 "use client"
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Dashboard } from "@/components";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAuth } from "@/contexts";
 
 export default function Home(){
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-
     const router = useRouter();
+    const isAuth = typeof window !== 'undefined' && !!!localStorage.getItem('email');
 
     useEffect(() => {
-      if (!localStorage.getItem('email')){
-        router.push('/auth')
-      } else {
-        setIsAuthenticated(true)
-      }
-    }, [])
-
+      setTimeout(() => {
+          if (isAuth) {
+              router.push('/auth');
+          }
+      }, 500);
+  }, []);
 
     return (
-      isAuthenticated && (
-        <Dashboard />
+      isAuth && (
+        <div>
+          
+        </div>
       )
     )
 }

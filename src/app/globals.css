@@ -3,21 +3,12 @@
 @tailwind utilities;
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
-
-/* @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Domine&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 :root{
-  background-color: #F5F5F5;
 }
 
 body {
-  font-family: 'Poppins', sans-serif !important;
-  /* font-family: 'Domine'; */
-  color: #313131;
-}
-
-.font-domine {
-  font-family: 'Domine', serif;
+  font-family: 'Lato', 'sans-serif' !important; 
+  background-color: #F5F5F5;
 }

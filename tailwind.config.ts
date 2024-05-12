@@ -8,12 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-
       colors: {
         'marmut-000': '#f5f5f5',
         'marmut-100': '#dddddd',
@@ -28,6 +22,7 @@ const config: Config = {
 
         'danger-100': '#E60000',
 
+        'marmut-green-000': '#808960',
         'marmut-green-100': '#707b4c',
         'marmut-green-200': '#606c38',
         'marmut-green-300': '#606c38',
