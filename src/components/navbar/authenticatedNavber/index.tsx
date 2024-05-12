@@ -13,18 +13,15 @@ export const AuthenticatedNavbar: React.FC = () => {
 
     return (
         <div className="flex flex-row w-screen bg-marmut-dark-green-300 z-[999] fixed gap-3 px-5 py-2 justify-between items-center h-[62px]">
-            <div className="flex flex-row items-center gap-3">
-                <div className="flex items-center flex-col pt-[6px]">
-                    <div className="text-marmut-100 font-bold text-[18px] whitespace-nowrap leading-3">Marmut-E13</div>
-                    <div className="rounded-md px-2 ml-2">
-                        <text className="text-white text-xs leading-3">non-premium</text>
-                    </div>
+            <div className="flex flex-row items-center gap-3 w-full">
+                <div className="text-marmut-100 font-bold text-[18px] whitespace-nowrap leading-3">Marmut-E13</div>
+
+                <div className="flex w-[70%] max-w-[400px] justify-start">
+                    <input placeholder="Search" className="rounded-md px-3 w-full py-1"/>  
                 </div>
             </div>
 
-            <div className="flex w-[40%] justify-start">
-                <input placeholder="Search" className="rounded-md px-3 w-full py-1"/>  
-            </div>
+            
 
             <div className="flex flex-row gap-3">
                 <div className="flex flex-row gap-1 text-marmut-000 ">
@@ -38,7 +35,7 @@ export const AuthenticatedNavbar: React.FC = () => {
                     {role.includes('label') && <button className="hover:bg-marmut-green-100 px-[10px]">Album</button>} 
                     {(role.includes('artist') || role.includes('songwriter') || role.includes('label')) && <button className="hover:bg-marmut-green-100 px-[10px]">Royalty</button>} 
                 </div>
-                <button className="bg-marmut-brown-700 px-3 py-[6px] rounded-lg text-marmut-000" onClick={logout}>Logout</button>
+                <button className="bg-marmut-brown-700 px-3 py-[6px] rounded-lg text-marmut-000 hover:bg-marmut-light-brown-200 hover:text-marmut-brown-800" onClick={logout}>Logout</button>
             </div>
         </div>
     )
