@@ -1,5 +1,5 @@
-import LabelDashboard from "@/components/dashboard/labelDashboard";
-// import { PodcasterDashboard } from "@/components/dashboard/podcasterDashboard";
+import  LabelDashboard from "@/components/dashboard/labelDashboard";
+import { PodcasterDashboard } from "@/components/dashboard/podcasterDashboard";
 import { UserDashboard } from "@/components/dashboard/userDashboard";
 
 const Dashboard: React.FC = () => {
@@ -18,13 +18,12 @@ const Dashboard: React.FC = () => {
                         <text>lana@gmail.com</text>
                     </div>
 
-                    <div className="flex flex-row gap-2">
-                        <text className="font-semibold">Kontak:</text>
-                        {/* <text>{dummyData.total_durasi}</text> */}
-                        <text>08987654321</text>
-                    </div>
-
                     {/* <div className="flex flex-row gap-2">
+                        <text className="font-semibold">Kontak:</text>
+                        <text>08987654321</text>
+                    </div> */}
+
+                    <div className="flex flex-row gap-2">
                         <text className="font-semibold">Kota asal:</text>
                         <text>Depok</text>
                     </div>
@@ -47,11 +46,11 @@ const Dashboard: React.FC = () => {
                     <div className="flex flex-row gap-2">
                         <text className="font-semibold">Role:</text>
                         <text>Artist, Podcaster</text>
-                    </div> */}
+                    </div>
                 </div>
             </div>
 
-            <LabelDashboard />
+            <PodcasterDashboard />
         </div>
     )
 }

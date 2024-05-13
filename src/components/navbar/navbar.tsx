@@ -1,19 +1,14 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+// import React, { useEffect, useState } from "react";
+import { useAuth } from "@/contexts";
 import { AuthenticatedNavbar } from "./authenticatedNavber";
 import { UnauthenticatedNavbar } from "./unauthenticatedNavbar";
-import { usePathname } from "next/navigation";
 
 export const Navbar: React.FC = () => {
-    const pathname = usePathname()
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const { isAuthenticated } = useAuth();
 
-    useEffect(() => {
-        if (localStorage.getItem("email")) {
-            setIsAuthenticated(true);
-        }
-    }, [pathname])
+    console.log(isAuthenticated)
 
     return (
         <div>
@@ -21,5 +16,5 @@ export const Navbar: React.FC = () => {
             <AuthenticatedNavbar />
             {/* <UnauthenticatedNavbar /> */}
         </div>
-    )
-}
+    );
+};
