@@ -4,9 +4,11 @@ import { usePathname, useRouter } from "next/navigation";
 import Marmut2PNG from '@/images/marmut2.png'
 import Image from "next/image";
 import { FormEvent } from "react";
-import { login } from "@/actions/login";
+import { loginUser } from "@/actions/loginUser";
+import { useAuth } from "@/contexts";
 
 const Login: React.FC = () => {
+    const { login } = useAuth();
 
     const router = useRouter();
     const pathname = usePathname();
@@ -16,19 +18,22 @@ const Login: React.FC = () => {
       const formData = new FormData(e.target as HTMLFormElement);
 
       try{
-        const isAuthenticated = await login(formData);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const userRole = await login(email, password);
 
-        // console.log(isAuthenticated)
-        if (isAuthenticated){
-          localStorage.setItem('email', formData.get('email') as string)
-          router.push('/')
-        }
+        console.log("ini suer role client:", userRole);
+
+        // if (userRole !== undefined && userRole[0] !== ''){
+          // console.log("final boss debug")
+          // localStorage.setItem('email', formData.get('email') as string)
+          // router.push('/')
+        // }
+
       } catch {
 
       }
     }
-
-    // localStorage.removeItem('email')
 
     const REGISTER_OPTIONS = [
         { text: "Label", route: `${pathname}/label` },

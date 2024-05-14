@@ -1,11 +1,21 @@
+<<<<<<< HEAD
 "use client"
 
 import SongwriterDashboard from "@/components/dashboard/songwriterDashboard";
+=======
+import { LabelDashboard } from "@/components/dashboard/labelDashboard";
+import { PodcasterDashboard } from "@/components/dashboard/podcasterDashboard";
+import { UserDashboard } from "@/components/dashboard/userDashboard";
+>>>>>>> 72743a473cad2f3b15e29b7be8ecd1fd4b449d0c
 
 const Dashboard: React.FC = () => {
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-5">
+<<<<<<< HEAD
             <div className="flex flex-col w-full items-start gap-3">
+=======
+             <div className="flex flex-col w-full items-start gap-3">
+>>>>>>> 72743a473cad2f3b15e29b7be8ecd1fd4b449d0c
                 <div>
                     <div className="flex flex-row gap-[10px]">
                         <text className="font-semibold">Nama:</text>
@@ -18,11 +28,18 @@ const Dashboard: React.FC = () => {
                         <text>lana@gmail.com</text>
                     </div>
 
+<<<<<<< HEAD
                     <div className="flex flex-row gap-2">
                         <text className="font-semibold">Kontak:</text>
                         {/* <text>{dummyData.total_durasi}</text> */}
                         <text>08987654321</text>
                     </div>
+=======
+                    {/* <div className="flex flex-row gap-2">
+                        <text className="font-semibold">Kontak:</text>
+                        <text>08987654321</text>
+                    </div> */}
+>>>>>>> 72743a473cad2f3b15e29b7be8ecd1fd4b449d0c
 
                     <div className="flex flex-row gap-2">
                         <text className="font-semibold">Kota asal:</text>
@@ -46,12 +63,20 @@ const Dashboard: React.FC = () => {
 
                     <div className="flex flex-row gap-2">
                         <text className="font-semibold">Role:</text>
+<<<<<<< HEAD
                         <text>Artist, SongWriter</text>
+=======
+                        <text>Artist, Podcaster</text>
+>>>>>>> 72743a473cad2f3b15e29b7be8ecd1fd4b449d0c
                     </div>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <SongwriterDashboard />
+=======
+            <PodcasterDashboard />
+>>>>>>> 72743a473cad2f3b15e29b7be8ecd1fd4b449d0c
         </div>
     )
 }

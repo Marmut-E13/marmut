@@ -44,6 +44,8 @@ const Label: React.FC = () => {
                     <label className="form-label">Kontak</label>
                     <input name="kontak" className="form-control border-marmut-green-600" />
                 </div>
+
+                <button type="submit" className="bg">Register</button>
             </form>
         </div>
     )

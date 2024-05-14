@@ -1,12 +1,11 @@
 "use client"
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { registerUser } from "@/actions/registerUser";
 
 const Pengguna: React.FC = () => {
     const router = useRouter();
-
 
     const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -14,7 +13,7 @@ const Pengguna: React.FC = () => {
 
         try {
             await registerUser(formData);
-            router.push('/login')
+            router.push(`auth/login`)
 
           } catch (error) {
             console.error("Failed to register user:", error);

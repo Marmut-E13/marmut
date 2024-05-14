@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar, UnauthenticatedNavbar } from "@/components/navbar";
+import { Navbar } from "@/components/navbar";
+import { AuthContextProvider } from "@/contexts/authContext";
 
 export const metadata: Metadata = {
   title: "Marmut-E13",
@@ -14,13 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      
       <body>
-        <Navbar />
-
-        <main  className="">
-          {children}
-        </main>
+        <AuthContextProvider>
+          <Navbar />
+          <main className="">
+            {children}
+          </main>
+        </AuthContextProvider>
       </body>
     </html>
   );
