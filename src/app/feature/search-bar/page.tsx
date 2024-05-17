@@ -1,30 +1,25 @@
 "use client"
 
 import { useState } from "react";
+import { getSearchResult } from "@/actions/getSearchResult"; // Sesuaikan path sesuai struktur proyekmu
 
 const SearchPage: React.FC = () => {
     const [query, setQuery] = useState<string>("");
     const [searchResults, setSearchResults] = useState<any[]>([]); // Menyimpan hasil pencarian
 
-    const handleSearch = () => {
-        const dummyData = [
-            { type: "Song", title: "Happy Mood", artist: "Medey" },
-            { type: "Song", title: "Tuturututu", artist: "Hundy" },
-            { type: "Podcast", title: "His Crazy", podcaster: "Frezy" },
-            { type: "Podcast", title: "Gil Crush", podcaster: "Sally" },
-            { type: "User Playlist", title: "Sad", creator: "Uni" },
-            { type: "User Playlist", title: "My Love", creator: "Sabrina" },
-        ];
-
-        const results = dummyData.filter(item =>
-            item.type.toLowerCase().includes(query.toLowerCase()),
-        );
-
-        setSearchResults(results);
+    const handleSearch = async () => {
+        try {
+            const results = await getSearchResult(query); // Panggil fungsi untuk melakukan pencarian
+            setSearchResults(results);
+        } catch (error) {
+            console.error("Failed to search:", error);
+            // Handle error
+        }
     };
 
     const handleViewDetail = (title: string, type: string) => {
         console.log(`View detail of ${type}: ${title}`);
+        // Implement navigation to detail page based on type and title
     };
 
     return (
@@ -36,14 +31,14 @@ const SearchPage: React.FC = () => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search..."
-                    className="flex-grow focus:outline-none"
+                    className="flex-grow focus:outline-none px-4 py-2 rounded-l-md border-r-0"
                 />
-                <button onClick={handleSearch} className="bg-marmut-green-600 text-white py-2 px-4 rounded-md ml-2">Search</button>
+                <button onClick={handleSearch} className="bg-marmut-green-600 text-white py-2 px-4 rounded-r-md border-l-0">Search</button>
             </div>
             {searchResults.length === 0 ? (
-                <p>Maaf, pencarian untuk "{query}" tidak ditemukan</p>
+                <p className="text-gray-600">Maaf, pencarian untuk "{query}" tidak ditemukan</p>
             ) : (
-                <table className="w-full border-collapse border">
+                <table className="w-full border-collapse border mt-4">
                     <thead>
                     <tr className="bg-marmut-green-600 text-white">
                         <th className="border p-3">Tipe</th>
@@ -57,7 +52,7 @@ const SearchPage: React.FC = () => {
                         <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
                             <td className="border p-3">{item.type}</td>
                             <td className="border p-3">{item.title}</td>
-                            <td className="border p-3">{item.artist || item.podcaster || item.creator}</td>
+                            <td className="border p-3">{item.by}</td>
                             <td className="border p-3">
                                 <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">View</button>
                             </td>
