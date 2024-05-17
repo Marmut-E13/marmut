@@ -1,4 +1,4 @@
-// src/actions/saveTransaction.ts
+"use server"
 
 import { sql } from "@vercel/postgres";
 import { v4 as uuidv4 } from 'uuid';

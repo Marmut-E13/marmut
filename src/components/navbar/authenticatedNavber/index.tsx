@@ -30,7 +30,7 @@ export const AuthenticatedNavbar: React.FC = () => {
                 <div className="flex flex-row gap-1 text-marmut-000 ">
                     <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/dashboard')}>Dashboard</button>
                     {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Chart</button>}
-                    {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Subscribe</button>}
+                    {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/feature/langganan')}>Subscribe</button>}
                     {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Playlist</button>}
                     {role.includes('premium') && <button className="hover:bg-marmut-green-100 px-[10px]">Download</button>}
                     {role.includes('podcaster') && <button className="hover:bg-marmut-green-100 px-[10px]">Podcast</button>}
