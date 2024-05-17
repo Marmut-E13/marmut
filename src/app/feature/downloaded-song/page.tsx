@@ -1,52 +1,43 @@
-"use client"
+"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getDownloadedSongs } from "@/actions/getDownloadedSongs";
+import { deleteDownloadedSong } from "@/actions/deleteDownloadedSong";
+import { useAuth } from "@/contexts"; // Pastikan lokasi useAuth benar
 
 const DownloadedSongs: React.FC = () => {
     const router = useRouter();
-    const [downloadedSongs, setDownloadedSongs] = useState<any[]>([
-        {
-            title: "Song1",
-            artist: "Artist1",
-            downloadDate: "20/02/2024"
-        },
-        {
-            title: "Song2",
-            artist: "Artist2",
-            downloadDate: "21/02/2024"
-        },
-        {
-            title: "Song3",
-            artist: "Artist3",
-            downloadDate: "22/02/2024"
-        },
-        {
-            title: "Song4",
-            artist: "Artist4",
-            downloadDate: "23/02/2024"
-        },
-        {
-            title: "Song5",
-            artist: "Artist5",
-            downloadDate: "24/02/2024"
-        },
-        {
-            title: "Song6",
-            artist: "Artist6",
-            downloadDate: "25/02/2024"
-        },
+    const { username, isAuthenticated } = useAuth(); // Menggunakan username dari useAuth
+    const [downloadedSongs, setDownloadedSongs] = useState<any[]>([]);
 
-    ]);
+    useEffect(() => {
+        const fetchDownloadedSongs = async () => {
+            try {
+                if (isAuthenticated && username) {
+                    const songs = await getDownloadedSongs(username); // Gunakan username saat memanggil fungsi getDownloadedSongs
+                    console.log("Fetched downloaded songs:", songs);
+                    setDownloadedSongs(songs);
+                }
+            } catch (error) {
+                console.error("Failed to fetch downloaded songs:", error);
+            }
+        };
 
-    const handleViewSong = (title: string) => {
-        router.push(`/songs/${title}`);
-    };
+        if (isAuthenticated) {
+            fetchDownloadedSongs();
+        }
+    }, [isAuthenticated, username]);
 
-    const handleDeleteSong = (title: string) => {
-        const updatedSongs = downloadedSongs.filter(song => song.title !== title);
-        setDownloadedSongs(updatedSongs);
-        alert(`Berhasil menghapus Lagu dengan judul '${title}' dari daftar unduhan!`);
+    const handleDeleteSong = async (title: string) => {
+        try {
+            await deleteDownloadedSong(title);
+            const updatedSongs = downloadedSongs.filter(song => song.title !== title);
+            setDownloadedSongs(updatedSongs);
+            alert(`Berhasil menghapus Lagu dengan judul '${title}' dari daftar unduhan!`);
+        } catch (error) {
+            console.error("Failed to delete downloaded song:", error);
+        }
     };
 
     return (
@@ -57,19 +48,19 @@ const DownloadedSongs: React.FC = () => {
                     <thead>
                     <tr className="bg-marmut-green-600 text-white">
                         <th className="p-3">Judul Lagu</th>
-                        <th className="p-3">Oleh</th>
-                        <th className="p-3">Tanggal Download</th>
+                        <th className="p-3">Nama Artis</th>
+                        <th className="p-3">Tanggal Rilis</th>
                         <th className="p-3">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {downloadedSongs.map((song, index) => (
                         <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
-                            <td className="p-3 bg-marmut-green-000">{song.title}</td>
-                            <td className="p-3 bg-marmut-green-000">{song.artist}</td>
-                            <td className="p-3 bg-marmut-green-000">{song.downloadDate}</td>
-                            <td className="p-3 bg-marmut-green-000">
-                                <button onClick={() => handleViewSong(song.title)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">Lihat</button>
+                            <td className="p-3">{song.title}</td>
+                            <td className="p-3">{song.artistName}</td>
+                            <td className="p-3">{song.releaseDate}</td>
+                            <td className="p-3">
+                                <button onClick={() => router.push(`/songs/${song.title}`)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">Lihat</button>
                                 <button onClick={() => handleDeleteSong(song.title)} className="bg-red-600 text-white py-1 px-2 rounded-md">Hapus</button>
                             </td>
                         </tr>
@@ -80,6 +71,6 @@ const DownloadedSongs: React.FC = () => {
             <button onClick={() => router.back()} className="bg-marmut-green-600 text-white py-2 px-4 rounded-md mt-4">Kembali</button>
         </div>
     );
-}
+};
 
 export default DownloadedSongs;
