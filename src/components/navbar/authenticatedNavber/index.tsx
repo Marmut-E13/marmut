@@ -10,7 +10,6 @@ export const AuthenticatedNavbar: React.FC = () => {
 
     console.log("ini role:", role);
 
-
     return (
         <div className="flex flex-row w-screen bg-marmut-dark-green-300 z-[999] fixed gap-3 px-5 py-2 justify-between items-center h-[62px]">
             <div className="flex flex-row items-center gap-3 w-full">
@@ -21,14 +20,12 @@ export const AuthenticatedNavbar: React.FC = () => {
                 </div>
             </div>
 
-            
-
             <div className="flex flex-row gap-3">
                 <div className="flex flex-row gap-1 text-marmut-000 ">
                     <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/dashboard')}>Dashboard</button>
                     {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Chart</button>}
                     {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Subscribe</button>} 
-                    {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Playlist</button>} 
+                    {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push(`/playlist`)}>Playlist</button>} 
                     {role.includes('premium') && <button className="hover:bg-marmut-green-100 px-[10px]">Download</button>} 
                     {role.includes('podcaster') && <button className="hover:bg-marmut-green-100 px-[10px]">Podcast</button>} 
                     {(role.includes('artist') || role.includes('songwriter')) && <button className="hover:bg-marmut-green-100 px-[10px] whitespace-nowrap">Album & Songs</button>} 

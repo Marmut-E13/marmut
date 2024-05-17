@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
-    username: string;
+    email: string;
     role: ('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'label' | 'premium')[];
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'label' | 'premium')[]>;
@@ -13,7 +13,7 @@ interface AuthContextProps {
 }
 
 const AuthContext = createContext<AuthContextProps>({
-    username: '',
+    email: '',
     role: [''],
     isAuthenticated: false,
     login: (email: string, password: string) => Promise.resolve([]),
@@ -28,7 +28,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({
 }) => {
     const router = useRouter();
 
-    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [role, setRole] = useState<('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'label' | 'premium')[]>(['']);
 
@@ -36,7 +36,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({
         const storedEmail = localStorage.getItem('email');
         const storedIsAuthenticated = !!storedEmail; 
         setIsAuthenticated(storedIsAuthenticated);
-        setUsername(storedEmail || '');
+        setEmail(storedEmail || '');
         setRole(localStorage.getItem("role") ? localStorage.getItem("role")?.split(",") as any : [''])
     }, []);
 
@@ -46,7 +46,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({
     
             if (userRoles !== undefined && userRoles !== null && userRoles[0] !== '') {
                 setIsAuthenticated(true);
-                setUsername(email);
+                setEmail(email);
                 setRole(userRoles as ("" | "pengguna" | "podcaster" | "songwriter" | "artist" | 'label' | 'premium')[]);
 
                 // console.log("ini user roles baru:", userRoles);
@@ -67,11 +67,11 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({
     
     const logout = () => {
         setIsAuthenticated(false);
-        setUsername('');
+        setEmail('');
         setRole(['']);
         localStorage.removeItem('email');
         router.push('/');
     };
 
-    return <AuthContext.Provider value={{ username, isAuthenticated, login, logout, role }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ email, isAuthenticated, login, logout, role }}>{children}</AuthContext.Provider>
 }

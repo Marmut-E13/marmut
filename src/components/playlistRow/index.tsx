@@ -11,12 +11,11 @@ interface PlaylistRowProps {
 export const PlaylistRow: React.FC<PlaylistRowProps> = ({
     data
 }) => {
-
     const router = useRouter()
     const pathname = usePathname()
 
-    const handleInfo = () => {
-        router.push(`${pathname}/dummy`)
+    const handleInfo = (idUserplaylist: string) => {
+        router.push(`${pathname}/${idUserplaylist}`)
     }
 
     return (
@@ -34,8 +33,8 @@ export const PlaylistRow: React.FC<PlaylistRowProps> = ({
                 <text>menit</text>
             </div>
 
-            <div className="col-span-1 flex-row items-center px-2 flex gap-[6px]">
-                <button className="bg-marmut-700 text-marmut-100 p-[7px] rounded-md" onClick={() => handleInfo()}>
+            <div className="col-span-1 flex-row items-center flex gap-[7px] justify-center ">
+                <button className="bg-marmut-700 text-marmut-100 p-[7px] rounded-md" onClick={() => handleInfo(data.id_playlist)}>
                     <HiOutlineInformationCircle size={23}/>
                 </button>
 

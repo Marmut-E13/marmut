@@ -1,16 +1,24 @@
 "use client"
 
+import { FormEvent } from "react";
 import { HiOutlineX } from "react-icons/hi";
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    primaryButtonCallback: () => void
+    primaryButtonCallback: (formData: FormData) => void
 }
 
 export const PlaylistModal: React.FC<ModalProps> = ({
     isOpen, onClose, primaryButtonCallback
 }) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        console.log("masuk sini")
+        e.preventDefault();
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        primaryButtonCallback(formData);
+    }
     
     return (
         <div className={`fixed z-[999] top-0 left-0 w-full h-full flex justify-center items-center ${isOpen ? 'block' : 'hidden'}`} style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
@@ -21,7 +29,7 @@ export const PlaylistModal: React.FC<ModalProps> = ({
                     </button>
                 </div>
 
-                <main className="flex flex-col gap-3 px-[45px] pb-2">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3 px-[45px] pb-2">
                     <div className="flex justify-center">
                         <text className="text-2xl font-semibold">ADD PLAYLIST</text>
                         {/* <text className="text-2xl font-semibold">UPDATE PLAYLIST</text> */}
@@ -31,21 +39,21 @@ export const PlaylistModal: React.FC<ModalProps> = ({
                     <div className="flex flex-col gap-[14px]">
                         <div className="flex flex-col gap-[2px]">
                             <text className="font-semibold">Name</text>
-                            <input className="px-3 py-[6px] border-[2px] border-marmut-dark-green-300 rounded-md bg-marmut-000 text-[16px]" placeholder="Playlist name"/>
+                            <input className="px-3 py-[6px] border-[2px] border-marmut-dark-green-300 rounded-md bg-marmut-000 text-[16px]" name="judul" placeholder="Playlist name"/>
                         </div>
 
                         <div className="flex flex-col gap-[2px]">
                             <text className="font-semibold">Description</text>
-                            <textarea className="px-3 py-[6px] border-[2px] border-marmut-dark-green-300 rounded-md bg-marmut-000 text-[16px]" placeholder="Playlist description"/>
+                            <textarea className="px-3 py-[6px] border-[2px] border-marmut-dark-green-300 rounded-md bg-marmut-000 text-[16px]" name="deskripsi" placeholder="Playlist description"/>
                         </div>
                     </div>
 
-                    <button className="mt-3 bg-marmut-dark-green-300 text-marmut-000 flex flex-row justify-center py-2 px-3 items-center rounded-md">
+                    <button className="mt-3 bg-marmut-dark-green-300 text-marmut-000 flex flex-row justify-center py-2 px-3 items-center rounded-md" type="submit">
                         Add
                         {/* Update */}
                         {/* nanti ada ternary operatornya */}
                     </button>
-                </main>
+                </form>
             </div>
         </div>
     )
