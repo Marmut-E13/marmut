@@ -1,6 +1,6 @@
 "use client"
 
-import { addPlaylistSong, getPlaylist, getPlaylistById, getPlaylistSong } from "@/actions/playlist";
+import { addPlaylistSong, deletePlaylistSong, getPlaylist, getPlaylistById, getPlaylistSong } from "@/actions/playlist";
 import { SongModal, SongRow } from "@/components";
 import { useAuth } from "@/contexts";
 import { KontenProps, UserPlaylistProps } from "@/types/playlist";
@@ -65,17 +65,29 @@ const PlaylistDetail = ({params}: {params: {idPlaylist: string}}) => {
                 close();
                 setError('');
                 setSongs(prevSongs => [...prevSongs, res?.song]);
+
+                handleGetPlaylistSong(params.idPlaylist);
             }
 
         } catch (error) {
         }
     };
+
+    const handleDeletePlaylistSong = async(idSong: string) => {
+        console.log("ke sini", idSong)
+        await deletePlaylistSong(params.idPlaylist, idSong);
+
+        setSongs(prevSongs => prevSongs.filter(song => song.id_konten !== idSong));
+    }
     
 
     useEffect(() => {
         handleGetPlaylistSong(params.idPlaylist);
         handleGetPlaylist(params.idPlaylist);
     }, [email, params])
+
+
+    // console.log(songs)
 
 
     return (
@@ -151,7 +163,7 @@ const PlaylistDetail = ({params}: {params: {idPlaylist: string}}) => {
 
                 <div className="flex flex-col gap-2 w-full">
                     {songs.map((props, key) => (
-                        <SongRow key={key} data={props}/>
+                        <SongRow key={key} data={props} handleDeletePlaylistSong={handleDeletePlaylistSong}/>
                     ))}
                 </div>
             </main>

@@ -26,10 +26,11 @@ interface SongProps {
 
 interface SongRowProps {
     data: SongProps
+    handleDeletePlaylistSong: (idSong: string) => void;
 }
 
 export const SongRow: React.FC<SongRowProps> = ({
-    data
+    data, handleDeletePlaylistSong
 }) => {
 
     const [artis, setArtis] = useState<string>('');
@@ -59,6 +60,10 @@ export const SongRow: React.FC<SongRowProps> = ({
         getSongData()
     }, [])
 
+    useEffect(() => {
+        getSongData()
+    }, [data])
+
     return (
         <div className="grid grid-cols-6 w-full bg-marmut-green-400 p-[10px] hover:bg-marmut-green-600 text-marmut-000 font-medium rounded-md items-center">
             <div className="col-span-2 flex-row items-center px-2">
@@ -83,7 +88,7 @@ export const SongRow: React.FC<SongRowProps> = ({
                     <PiPlay size={19}/>
                 </button>
 
-                <button className="bg-red-600 text-red-100 p-[7px] rounded-md">
+                <button className="bg-red-600 text-red-100 p-[7px] rounded-md" onClick={() => handleDeletePlaylistSong(konten.id)}>
                     <HiOutlineTrash size={21}/>
                 </button>
             </div>
