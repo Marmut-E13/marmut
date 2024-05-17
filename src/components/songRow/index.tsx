@@ -80,7 +80,7 @@ export const SongRow: React.FC<SongRowProps> = ({
             </div>
 
             <div className="col-span-1 flex-row items-center px-2 flex gap-[6px] justify-center">
-                <button className="bg-marmut-700 text-marmut-100 p-[7px] rounded-md">
+                <button className="bg-marmut-700 text-marmut-100 p-[7px] rounded-md" onClick={() => router.push(`/play/${konten.id}`)}>
                     <HiOutlineInformationCircle size={21}/> 
                 </button>
 
