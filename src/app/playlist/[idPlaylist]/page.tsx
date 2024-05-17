@@ -1,49 +1,63 @@
 "use client"
 
+import { getPlaylist, getPlaylistById, getPlaylistSong } from "@/actions/playlist";
 import { SongModal, SongRow } from "@/components";
-import { KontenProps, SongProps, UserPlaylistProps } from "@/types/playlist";
+import { useAuth } from "@/contexts";
+import { KontenProps, UserPlaylistProps } from "@/types/playlist";
+import { format, isValid } from "date-fns";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { HiArrowLeft, HiOutlinePlusSm } from "react-icons/hi";
 import { LuShuffle } from "react-icons/lu";
 import { useDisclosure } from "react-use-disclosure";
 
-const PlaylistDetail: React.FC = () => {
+interface SongProps {
+    id_konten: string;
+    id_artist: string;
+    id_album: string;
+    total_play: number;
+    total_download: number;
+}
+
+const PlaylistDetail = ({params}: {params: {idPlaylist: string}}) => {
     const router = useRouter();
     const pathname = usePathname();
 
+    const { email } = useAuth();
+
+    const [songs, setSongs] = useState<SongProps[]>([]);
+    const [userPlaylist, setUserPlaylist] = useState<UserPlaylistProps>({} as any);
     const { isOpen, open, close } = useDisclosure(false);
 
     const handleBack = () => {
         router.back()
     }
 
-    const dummyData: UserPlaylistProps = {
-        email_pembuat: "billie.eilish@gmail.com",
-        id_user_playlist: "25a7d562-6053-4b8c-bff6-44ba23ed2bd2",
-        judul: "Lana del slay",
-        deskripsi: "all for our mother, lana del rey",
-        jumlah_lagu: 54,
-        tanggal_dibuat: new Date(2024, 3, 2),
-        id_playlist: "dc65dec4-3a1d-422d-ac7f-077cdba41fd0",
-        total_durasi: 9442
+    const handleGetPlaylistSong = async (id: string) => {
+        try{
+            const res = await getPlaylistSong(id);
+            setSongs(res as SongProps[]);
+
+        } catch(error){
+
+        }
     }
 
-    const dummySongs: SongProps[] = [
-        {
-          id_konten: "1",
-          id_artist: "id-lana",
-          id_album: "id-ultraviolence",
-          total_play: 1000,
-          total_download: 500,
-        },
-        {
-          id_konten: "2",
-          id_artist: "id-lana",
-          id_album: "id-borntodie",
-          total_play: 800,
-          total_download: 300,
-        },
-    ];
+    const handleGetPlaylist = async(idPlaylist: string) => {
+        try{
+            const res = await getPlaylistById(idPlaylist);
+            setUserPlaylist(res![0] as any)
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        handleGetPlaylistSong(params.idPlaylist);
+        handleGetPlaylist(params.idPlaylist);
+    }, [email, params])
+
+    console.log()
 
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-4">
@@ -55,40 +69,31 @@ const PlaylistDetail: React.FC = () => {
 
             <div className="flex flex-col w-full items-start gap-3">
                 <div className="flex flex-col">
-                    <text className="text-4xl font-semibold">{dummyData.judul}</text>
+                    <text className="text-4xl font-semibold">{userPlaylist.judul}</text>
                     <text>by: lanatics</text>
                 </div>
 
                 <div>
                     <div className="flex flex-row gap-[10px]">
                         <text className="font-semibold">Jumlah Lagu:</text>
-                        <text>{dummyData.jumlah_lagu}</text>
+                        <text>{userPlaylist.jumlah_lagu}</text>
                     </div>
 
                     <div className="flex flex-row gap-2">
                         <text className="font-semibold">Total Durasi:</text>
-                        {/* <text>{dummyData.total_durasi}</text> */}
-                        <text>3 jam 12 menit</text>
+                        <text className="mr-[1px]">{(userPlaylist.total_durasi / 60).toFixed(2)}</text>
+                        <text>menit</text>
                     </div>
 
                     <div className="flex flex-row gap-2">
                         <text className="font-semibold">Tanggal Dibuat:</text>
-                        <text>20/04/2024</text>
+                        <text>{format(isValid(userPlaylist.tanggal_dibuat) ?  new Date(userPlaylist.tanggal_dibuat) : new Date(), 'dd/MM/yyyy')}</text>
                     </div>
                 </div>
 
                 <div>
                     <text className="text-marmut-400 font-semibold">
-                        Every night I used to pray that I’d find my people,
-                        and finally I did On the open road.
-                        We had nothing to lose, nothing to gain, nothing we desired anymore,
-                        except to make our lives into a work of art.
-                        
-                        Live fast,
-                        Die young,
-                        Be wild,
-                        And have fun.
-                        -Lana del ray
+                        {userPlaylist.deskripsi}
                     </text>
                 </div>
 
@@ -125,17 +130,17 @@ const PlaylistDetail: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
-                    {dummySongs.map((props, key) => (
+                    {songs.map((props, key) => (
                         <SongRow key={key} data={props}/>
                     ))}
                 </div>
             </main>
 
             <div>
-                {/* <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md" onClick={open}>
+                <button className="bg-marmut-dark-green-300 text-marmut-000 flex flex-row gap-2 py-2 px-3 items-center rounded-md" onClick={open}>
                     <HiOutlinePlusSm size={23}/>
                     <text>Tambah Lagu</text>
-                </button> */}
+                </button>
             </div>
         </div>
 

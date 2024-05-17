@@ -2,11 +2,11 @@
 
 import { sql } from "@vercel/postgres";
 
-export const getPlaylist = async (email: string) => {
+export const getPlaylistById = async (id: string) => {
     try{
         const { rows } = await sql`
         SELECT * FROM USER_PLAYLIST
-        WHERE email_pembuat=${email}
+        WHERE id_playlist=${id} 
         `;
 
         return rows;

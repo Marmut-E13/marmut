@@ -3,9 +3,6 @@
 import { sql } from "@vercel/postgres";
 
 export const deletePlaylist = async (idUserPlaylist: string, email: string) => {
-    console.log("ke sini");
-    console.log(email);
-    console.log(idUserPlaylist);
 
     try{
         await sql`

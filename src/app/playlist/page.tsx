@@ -21,13 +21,10 @@ export interface UserPlaylistProps {
 const Playlist: React.FC = () => {
     const { email } = useAuth();
 
-    // console.log(email, "ini email")
     const { isOpen, open, close } = useDisclosure(false);
     const [userPlaylist, setUserPlaylist] = useState<UserPlaylistProps[]>([])
 
     const handleGetPlaylist = async(email: string) => {
-
-        console.log("ke sini");
         try{
             const res = await getPlaylist(email);
             setUserPlaylist(res as UserPlaylistProps[]);
@@ -35,6 +32,8 @@ const Playlist: React.FC = () => {
 
         }
     }
+
+    
 
     const handleAddPlaylist = async(formData: FormData) => {
         try{
