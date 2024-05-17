@@ -1,18 +1,39 @@
 import { HiOutlineX } from "react-icons/hi"
 import { Dropdown } from "../dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllSong } from "@/actions/song";
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    primaryButtonCallback: () => void
+    primaryButtonCallback: (id: string) => void
+    error: string
 }
 
 export const SongModal: React.FC<ModalProps> = ({
-    isOpen, onClose, primaryButtonCallback
+    isOpen, onClose, primaryButtonCallback, error
 }) => {
+    const [options, setOptions] = useState<{display: string, value: string}[]>([{display: "", value: "a"}])
+    const [dropdownValue, setDropdownValue] = useState<string>('');
 
-    const [dropdownValue, setDropdownValue] = useState<string>('a')
+    const handleGetAllSong = async() => {
+        const res = await getAllSong();
+
+        const formattedOptions = res?.map(song => ({
+            display: song.judul,
+            value: song.id
+        }));
+
+        setOptions(formattedOptions as any);
+
+
+
+    }
+
+    useEffect(() => {
+        handleGetAllSong();
+    }, [])
+
     return (
         <div className={`fixed z-[999] top-0 left-0 w-full h-full flex justify-center items-center ${isOpen ? 'block' : 'hidden'}`} style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
             <div className="flex flex-col w-[40%] gap-1 bg-marmut-000 rounded-xl p-6">
@@ -33,11 +54,13 @@ export const SongModal: React.FC<ModalProps> = ({
                         <Dropdown
                             dropdownValue={dropdownValue}
                             setDropdownValue={setDropdownValue}
-                            options={[{display: 'Shades of cool - Lana del Rey', value: 'b'}, {display: 'Tomerrow never came - Lana del Rey', value: 'c'}]}
+                            options={options}
                         />
+
+                        {error && <text className="text-danger-100">{error}</text>}
                     </div>
 
-                    <button className="mt-3 bg-marmut-dark-green-300 text-marmut-000 flex flex-row justify-center py-2 px-3 items-center rounded-md">
+                    <button className="mt-3 bg-marmut-dark-green-300 text-marmut-000 flex flex-row justify-center py-2 px-3 items-center rounded-md" onClick={() => primaryButtonCallback(dropdownValue)}>
                         Add
                     </button>
                 </main>

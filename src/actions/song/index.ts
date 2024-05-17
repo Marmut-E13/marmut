@@ -1,0 +1,1 @@
+export { getAllSong } from './getAllSong';

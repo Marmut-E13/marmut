@@ -1,6 +1,6 @@
 "use client"
 
-import { getPlaylist, getPlaylistById, getPlaylistSong } from "@/actions/playlist";
+import { addPlaylistSong, getPlaylist, getPlaylistById, getPlaylistSong } from "@/actions/playlist";
 import { SongModal, SongRow } from "@/components";
 import { useAuth } from "@/contexts";
 import { KontenProps, UserPlaylistProps } from "@/types/playlist";
@@ -11,7 +11,7 @@ import { HiArrowLeft, HiOutlinePlusSm } from "react-icons/hi";
 import { LuShuffle } from "react-icons/lu";
 import { useDisclosure } from "react-use-disclosure";
 
-interface SongProps {
+export interface SongProps {
     id_konten: string;
     id_artist: string;
     id_album: string;
@@ -28,6 +28,7 @@ const PlaylistDetail = ({params}: {params: {idPlaylist: string}}) => {
     const [songs, setSongs] = useState<SongProps[]>([]);
     const [userPlaylist, setUserPlaylist] = useState<UserPlaylistProps>({} as any);
     const { isOpen, open, close } = useDisclosure(false);
+    const [ error, setError ] = useState<string>('');
 
     const handleBack = () => {
         router.back()
@@ -52,19 +53,38 @@ const PlaylistDetail = ({params}: {params: {idPlaylist: string}}) => {
         }
     }
 
+    const handleAddPlaylistSong = async(idSong: string) => {
+        try {
+            const res = await addPlaylistSong(idSong, email, params.idPlaylist);
+
+            if (res?.error) {
+                setError(res.error);
+                console.log("gabole ke sini");
+            } else {
+                console.log("ke sini");
+                close();
+                setError('');
+                setSongs(prevSongs => [...prevSongs, res?.song]);
+            }
+
+        } catch (error) {
+        }
+    };
+    
+
     useEffect(() => {
         handleGetPlaylistSong(params.idPlaylist);
         handleGetPlaylist(params.idPlaylist);
     }, [email, params])
 
-    console.log()
 
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-4">
             <SongModal 
                 isOpen={isOpen}
                 onClose={close}
-                primaryButtonCallback={() => {}}
+                primaryButtonCallback={handleAddPlaylistSong}
+                error={error}
             />
 
             <div className="flex flex-col w-full items-start gap-3">
