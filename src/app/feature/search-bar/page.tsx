@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { getSearchResult } from "@/actions/getSearchResult"; // Sesuaikan path sesuai struktur proyekmu
+import { getSearchResult } from "@/actions/feature/getSearchResult"; // Sesuaikan path sesuai struktur proyekmu
 
 const SearchPage: React.FC = () => {
     const [query, setQuery] = useState<string>("");

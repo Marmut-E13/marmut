@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts";
-import { getTransactionHistory } from "@/actions/getTransactionHistory";
+import { getTransactionHistory } from "@/actions/feature/getTransactionHistory";
 
 const RiwayatTransaksi: React.FC = () => {
     const router = useRouter();

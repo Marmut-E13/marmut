@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getDownloadedSongs } from "@/actions/getDownloadedSongs";
-import { deleteDownloadedSong } from "@/actions/deleteDownloadedSong";
+import { getDownloadedSongs } from "@/actions/feature/getDownloadedSongs";
+import { deleteDownloadedSong } from "@/actions/feature/deleteDownloadedSong";
 import { useAuth } from "@/contexts"; // Pastikan lokasi useAuth benar
 
 const DownloadedSongs: React.FC = () => {

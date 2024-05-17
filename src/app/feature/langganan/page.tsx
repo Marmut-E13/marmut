@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getPaket } from "@/actions/getPaket";
+import { getPaket } from "@/actions/feature/getPaket";
 import { useAuth } from "@/contexts";
 
 interface PaketData {
