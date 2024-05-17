@@ -1,6 +1,6 @@
 "use client"
 
-import { addPlaylist, getPlaylist } from "@/actions/playlist";
+import { addPlaylist, deletePlaylist, getPlaylist } from "@/actions/playlist";
 import { PlaylistModal, PlaylistRow } from "@/components";
 import { useAuth } from "@/contexts";
 import { useEffect, useState } from "react";
@@ -25,9 +25,11 @@ const Playlist: React.FC = () => {
     const { isOpen, open, close } = useDisclosure(false);
     const [userPlaylist, setUserPlaylist] = useState<UserPlaylistProps[]>([])
 
-    const handleGetPlaylist = async(idUserplaylist: string) => {
+    const handleGetPlaylist = async(email: string) => {
+
+        console.log("ke sini");
         try{
-            const res = await getPlaylist(idUserplaylist);
+            const res = await getPlaylist(email);
             setUserPlaylist(res as UserPlaylistProps[]);
         } catch (error) {
 
@@ -36,7 +38,7 @@ const Playlist: React.FC = () => {
 
     const handleAddPlaylist = async(formData: FormData) => {
         try{
-            const res = await addPlaylist(formData, email);
+            await addPlaylist(formData, email);
             handleGetPlaylist(email);
             close();
 
@@ -45,8 +47,18 @@ const Playlist: React.FC = () => {
         }
     }
 
+    const handleRemovePlaylist = async(idUserPlaylist: string) => {
+        try {
+            await deletePlaylist(idUserPlaylist, email);
+            handleGetPlaylist(email);
+            
+        } catch (error) {
+
+        }
+    }
+
     useEffect(() => {
-        handleGetPlaylist(email)
+        handleGetPlaylist(email);
     }, [email])
 
     console.log(userPlaylist);
@@ -95,7 +107,7 @@ const Playlist: React.FC = () => {
 
                 <div className="flex flex-col gap-2 w-full">
                     {userPlaylist.map((props, key) => (
-                        <PlaylistRow key={key} data={props}/>
+                        <PlaylistRow key={key} data={props} handleRemovePlaylist={handleRemovePlaylist}/>
                     ))}
                 </div>
             </main>

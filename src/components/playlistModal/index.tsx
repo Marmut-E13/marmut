@@ -13,7 +13,6 @@ export const PlaylistModal: React.FC<ModalProps> = ({
     isOpen, onClose, primaryButtonCallback
 }) => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        console.log("masuk sini")
         e.preventDefault();
 
         const formData = new FormData(e.target as HTMLFormElement);
