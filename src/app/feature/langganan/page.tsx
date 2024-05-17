@@ -38,6 +38,7 @@ const Paket: React.FC = () => {
 
     const handleTransactionHistory = () => {
         console.log("Menuju riwayat transaksi");
+        router.push(`/feature/langganan/riwayat`)
         // Implementasi navigasi ke riwayat transaksi
     };
 
