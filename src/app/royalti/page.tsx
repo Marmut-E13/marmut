@@ -1,16 +1,42 @@
 "use client"
 
-import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from 'react';
 import { FaMoneyCheckAlt } from "react-icons/fa";
+import { fetchRoyalti } from '@/actions/royalti/getRoyalti';
+import { useAuth } from '@/contexts';
 
-const royalti: React.FC = () => {
-    const pathname = usePathname();
+const Royalti = () => {
+    const { email } = useAuth();
+    const [royalties, setRoyalties] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    // Placeholder
-    const royalties = [
-        { title: "Yellow", album: "Parachutes", totalPlay: 3, totalDownload: 0, totalRoyalti: "Rp 450000" },
-        { title: "Sparks", album: "Parachutes", totalPlay: 2, totalDownload: 2, totalRoyalti: "Rp 520000" },
-    ];
+    useEffect(() => {
+        const fetchRoyalties = async () => {
+            if (!email) return;
+            try {
+                const response = await fetchRoyalti(email);
+                console.log(response)
+                if ('error' in response) {
+                    throw new Error(response.error);
+                }
+                setRoyalties(response);
+            } catch (err) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError('An unexpected error occurred');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRoyalties();
+    }, [email]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div className="flex justify-center items-center min-h-screen w-full" style={{ backgroundColor: '#DDA15E' }}>
@@ -30,11 +56,11 @@ const royalti: React.FC = () => {
                         <tbody>
                             {royalties.map((royalti, index) => (
                                 <tr key={index}>
-                                    <td style={{ color: '#283618' }}>{royalti.title}</td>
-                                    <td style={{ color: '#283618' }}>{royalti.album}</td>
-                                    <td style={{ color: '#283618' }}>{royalti.totalPlay}</td>
-                                    <td style={{ color: '#283618' }}>{royalti.totalDownload}</td>
-                                    <td style={{ color: '#283618', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{royalti.totalRoyalti}</td>
+                                    <td>{royalti.title}</td>
+                                    <td>{royalti.album}</td>
+                                    <td>{royalti.total_play}</td>
+                                    <td>{royalti.total_download}</td>
+                                    <td>{`Rp ${royalti.total_royalti}`}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -42,7 +68,7 @@ const royalti: React.FC = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default royalti;
+export default Royalti;

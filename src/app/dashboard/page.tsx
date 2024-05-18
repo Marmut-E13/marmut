@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
                 </div>
             </div>
 
-            <PodcasterDashboard />
+            <LabelDashboard />
         </div>
     )
 }

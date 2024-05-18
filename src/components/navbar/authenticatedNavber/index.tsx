@@ -34,9 +34,10 @@ export const AuthenticatedNavbar: React.FC = () => {
                     {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]">Playlist</button>} 
                     {role.includes('premium') && <button className="hover:bg-marmut-green-100 px-[10px]">Download</button>} 
                     {role.includes('podcaster') && <button className="hover:bg-marmut-green-100 px-[10px]">Podcast</button>} 
-                    {(role.includes('artist') || role.includes('songwriter')) && <button className="hover:bg-marmut-green-100 px-[10px] whitespace-nowrap">Album & Songs</button>} 
-                    {role.includes('label') && <button className="hover:bg-marmut-green-100 px-[10px]">Album</button>} 
-                    {(role.includes('artist') || role.includes('songwriter') || role.includes('label')) && <button className="hover:bg-marmut-green-100 px-[10px]">Royalty</button>} 
+                    {(role.includes('artist') || role.includes('songwriter')) && <button className="hover:bg-marmut-green-100 px-[10px] whitespace-nowrap" onClick={() => router.push('/album-and-songs')}>Album & Songs</button>} 
+                    {role.includes('label') && <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/album-and-songs')}>Album</button>} 
+                    {(role.includes('artist') || role.includes('songwriter') || role.includes('label')) && 
+                        <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/royalti')}>Royalty</button>} 
                 </div>
                 <button className="bg-marmut-brown-700 px-3 py-[6px] rounded-lg text-marmut-000" onClick={logout}>Logout</button>
             </div>

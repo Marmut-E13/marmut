@@ -52,7 +52,30 @@ export const loginUser = async (email: string, password: string) => {
     
 } catch (error: any) {
       console.error("Failed to login:", error);
-    }
-    
-    
+    } 
 }
+
+export const getUserData = async (email: string) => {
+  try {
+    const query = `
+      SELECT a.email, a.nama AS name, p.id AS idPemilikHakCipta
+      FROM akun a
+      LEFT JOIN artist ar ON a.email = ar.email_akun
+      LEFT JOIN songwriter sw ON a.email = sw.email_akun
+      LEFT JOIN pemilik_hak_cipta p ON ar.id_pemilik_hak_cipta = p.id OR sw.id_pemilik_hak_cipta = p.id
+      WHERE a.email = $1
+      UNION
+      SELECT l.email, l.nama AS name, l.id_pemilik_hak_cipta AS idPemilikHakCipta
+      FROM label l
+      WHERE l.email = $1
+    `;
+    const { rows } = await sql.query(query, [email]);
+    if (rows.length === 0) {
+      throw new Error('User not found');
+    }
+    return rows[0];
+  } catch (error) {
+    console.error("Failed to fetch user data:", error);
+    throw error;
+  }
+};
