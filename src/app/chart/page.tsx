@@ -2,25 +2,36 @@
 
 import Head from 'next/head';
 import Link from 'next/link';
+import { useEffect, useState } from "react";
+import { getAllChart } from "@/actions/chart/getAllChart";
 
-interface Chart {
-    id: string;
-    type: string;
+
+interface ChartProps {
+    tipe: string;
+    id_playlist: string;
     // Add more properties as needed
 }
 
 const Chart: React.FC = () => {
-    const charts: Chart[] = [
-        {
-          id: 'caaa6fd4-404c-422f-8137-3a89d6b08807',
-          type: 'top 20 weekly',
-        },
-        {
-          id: 'f277d6ba-5b25-4f19-91c6-cb3f7633cf39',
-          type: 'top 20 daily',
-        },
-    ];
+
+    const [chartList, setChartList] = useState<ChartProps[]>([]);
     
+    const handleGetChartList = async () => {
+        try {
+            const res = await getAllChart();
+
+            setChartList(res as ChartProps[]);
+
+        } catch (error) {
+
+        }
+    };
+    
+    useEffect(() => {
+        handleGetChartList();
+    }, []);
+
+
     return (
         <div className="py-5">
             <div className="container mt-5">
@@ -36,13 +47,13 @@ const Chart: React.FC = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {charts.map((chart) => (
-                        <tr key={chart.id}>
+                    {chartList.map((chart) => (
+                        <tr key={chart.id_playlist}>
                         <td>
-                            <p>{chart.type}</p>
+                            <p>{chart.tipe}</p>
                         </td>
                         <td>
-                            <Link href={`/chart/${chart.id}`}>
+                            <Link href={`/chart/${chart.id_playlist}`}>
                                 <p className='text-primary'><u>details</u></p>
                             </Link>
                         </td>

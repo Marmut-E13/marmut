@@ -1,27 +1,25 @@
 "use client"
 
 import { getAllPodcast } from "@/actions/podcast/getAllPodcast";
-import { PlaylistModal, PlaylistRow } from "@/components";
-import { UUID } from "crypto";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export interface podcastProps {
+export interface PodcastProps {
     judul: string;
-    id_konten: UUID;
+    id_konten: string;
 }
 
 
 const ListPodcast: React.FC = () => {
 
 
-    const [podcastList, setPodcastList] = useState<podcastProps[]>([]);
+    const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
 
     const handleGetPodcastList = async () => {
         try {
             const res = await getAllPodcast();
 
-            setPodcastList(res as podcastProps[]);
+            setPodcastList(res as PodcastProps[]);
 
         } catch (error) {
             console.error("Failed to fetch podcast:", error);
@@ -51,10 +49,10 @@ const ListPodcast: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {podcastList.map((podcastProps, index) => (
-                                <tr key={index} id={podcastProps.id_konten}>
-                                    <Link href={`/podcast/${podcastProps.id_konten}`}>
-                                        <td>{podcastProps.judul}</td>
+                                {podcastList.map((PodcastProps, index) => (
+                                <tr key={index} id={PodcastProps.id_konten}>
+                                    <Link href={`/podcast/${PodcastProps.id_konten}`}>
+                                        <td>{PodcastProps.judul}</td>
                                     </Link>
 
                                 </tr>

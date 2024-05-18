@@ -93,12 +93,22 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
                     <div className="col-md-6">
                         <p><strong>Genre:</strong> {podcastDetails.genre}</p>
                         <p><strong>Podcaster:</strong> {podcastDetails.nama}</p>
-                        <p><strong>Total Duration:</strong> {Math.floor(totalEpisodesDuration.sum / 60)} Jam {totalEpisodesDuration.sum % 60} Menit</p>
+                        {totalEpisodesDuration.sum > 60 ? (
+                            <p><strong>Total Duration:</strong> {Math.floor(totalEpisodesDuration.sum / 60)} Jam {totalEpisodesDuration.sum % 60} Menit</p>
+                        ) : (
+                            <p><strong>Total Duration:</strong> {totalEpisodesDuration.sum} Menit</p>
+                        )};     
                     </div>
                     <div className="col-md-6">
                         <p><strong>Release Date:</strong> {format(isValid(podcastDetails.tanggal_rilis) ?  new Date(podcastDetails.tanggal_rilis) : new Date(), 'dd/MM/yy')}</p>
                         <p><strong>Year:</strong> {podcastDetails.tahun}</p>
                     </div>
+                </div>
+
+                <div className="mb-6 mt-6">
+                <Link className="text-white bg-marmut-green-600 p-3 rounded-xl" href="/podcast">
+                    back to podcast
+                </Link>
                 </div>
 
                 <h3 className="mb-2 text-xl font-bold">Podcast Episodes</h3>
@@ -107,7 +117,7 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
                         <table className="table table-striped table-hover table-bordered">
                         <thead className="thead-dark">
                             <tr>
-                            <th scope="col">Episode Title</th>
+                            <th className="col-3" scope="col">Episode Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Release Date</th>
@@ -125,12 +135,6 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
                         </tbody>
                         </table>
                     </div>
-                </div>
-
-                <div className="mb-4 mt-6">
-                <Link href="/podcast">
-                    <button className="btn btn-primary">Back to podcast</button>
-                </Link>
                 </div>
             </div>
         </div>
