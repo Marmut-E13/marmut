@@ -215,7 +215,7 @@ const PlaySong = ({params}: {params: {idSong: string}}) => {
             <SuccessModal
                 isOpen={SuccessModall.isOpen}
                 onClose={SuccessModall.close}
-                primaryButtonCallback={tipe == "playlist" ? handleSuccessAdd : () => router.push('/feature/download')}
+                primaryButtonCallback={tipe == "playlist" ? handleSuccessAdd : () => router.push('/feature/downloaded-song')}
                 judul={song.konten?.judul}
                 idPlaylist={idPlaylist}
                 playlist={playlistName}
@@ -225,7 +225,7 @@ const PlaySong = ({params}: {params: {idSong: string}}) => {
             <FailedModal
                 isOpen={failModal.isOpen}
                 onClose={failModal.close}
-                primaryButtonCallback={tipe == "playlist" ? handleSuccessAdd : () => router.push('/feature/download')}
+                primaryButtonCallback={tipe == "playlist" ? handleSuccessAdd : () => router.push('/feature/downloaded-song')}
                 judul={song.konten?.judul}
                 idPlaylist={idPlaylist}
                 playlist={playlistName}

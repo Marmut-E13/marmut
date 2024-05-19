@@ -42,16 +42,16 @@ const Login: React.FC = () => {
 
     return (
       <div className="px-[120px] flex justify-center py-[90px]">
-            <form onSubmit={handleLogin} className="min-w-[600px] border-[2px] border-stonks-700 rounded-xl p-[55px] flex flex-col gap-4">
+            <form onSubmit={handleLogin} className="min-w-[600px] border-[2px] border-marmut-green-700 rounded-xl p-[55px] flex flex-col gap-4">
 
                 <div>
                     <label className="form-label">Email</label>
-                    <input name="email" type="email" className="form-control border-stonks-600" />
+                    <input name="email" type="email" className="form-control border-marmut-green-600" />
                 </div>
 
                 <div>
                     <label className="form-label">Password</label>
-                    <input name="password" type="password" className="form-control border-stonks-600" />
+                    <input name="password" type="password" className="form-control border-marmut-green-600" />
                 </div>
 
                 <button className="">Submit</button>

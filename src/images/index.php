@@ -111,12 +111,12 @@ document.body.className += ' jsenabled';
             <form action="https://scele.cs.ui.ac.id/login/index.php" method="post" id="login">
                 <div class="loginform">
                     <div class="form-label">
-                        <label for="username">
-                                Username
+                        <label for="email">
+                                email
                         </label>
                     </div>
                     <div class="form-input">
-                        <input type="text" name="username" id="username" size="15" value="">
+                        <input type="text" name="email" id="email" size="15" value="">
                     </div>
                     <div class="clearer"><!-- --></div>
                     <div class="form-label">
@@ -129,8 +129,8 @@ document.body.className += ' jsenabled';
 
                 <div class="clearer"><!-- --></div>
                     <div class="rememberpass">
-                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1"  />
-                        <label for="rememberusername">Remember username</label>
+                        <input type="checkbox" name="rememberemail" id="rememberemail" value="1"  />
+                        <label for="rememberemail">Remember email</label>
                     </div>
                 <div class="clearer"><!-- --></div>
                 <input id="anchor" type="hidden" name="anchor" value="" />
@@ -138,7 +138,7 @@ document.body.className += ' jsenabled';
                 <input type="hidden" name="logintoken" value="ASRSkrsqneJTHHmlKV1EozcFroHmlhxo">
                 <input type="submit" id="loginbtn" value="Log in" />
                 <div class="forgetpass">
-                    <a href="https://scele.cs.ui.ac.id/login/forgot_password.php">Forgotten your username or password?</a>
+                    <a href="https://scele.cs.ui.ac.id/login/forgot_password.php">Forgotten your email or password?</a>
                 </div>
             </form>
 
@@ -157,7 +157,7 @@ document.body.className += ' jsenabled';
                 <form action="https://scele.cs.ui.ac.id/login/index.php" method="post" id="guestlogin">
                     <div class="guestform">
                         <input type="hidden" name="logintoken" value="ASRSkrsqneJTHHmlKV1EozcFroHmlhxo">
-                        <input type="hidden" name="username" value="guest" />
+                        <input type="hidden" name="email" value="guest" />
                         <input type="hidden" name="password" value="guest" />
                         <input type="submit" value="Log in as a guest" />
                     </div>
@@ -172,7 +172,7 @@ document.body.className += ' jsenabled';
 </div></div>        </section>
     </div>
     
-    <a href="#top" class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i><p></p></a>
+    <a href="#top" class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i><text></text></a>
     
 </div>
 
@@ -182,7 +182,7 @@ document.body.className += ' jsenabled';
 
 	<div class="footerlinks">
     	<div class="row-fluid">
-    		<p class="helplink"></p>
+    		<p class="helplink"></text>
     				</div>
         
             		
