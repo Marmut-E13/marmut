@@ -24,11 +24,14 @@ const Playlist: React.FC = () => {
     const addPlaylistModal = useDisclosure(false);
 
     const [userPlaylist, setUserPlaylist] = useState<UserPlaylistProps[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const handleGetPlaylist = async (email: string) => {
         try {
+            setIsLoading(true)
             const res = await getPlaylist(email);
             setUserPlaylist(res as UserPlaylistProps[]);
+            setIsLoading(false);
         } catch (error) {
 
         }
@@ -68,9 +71,23 @@ const Playlist: React.FC = () => {
     }, [email]);
 
     return (
+        isLoading ? 
+        <div className="flex justify-center flex-col py-[120px] gap-5 items-center h-screen w-full">
+            <div className="spinner-border text-success" role="status">
+                <span className="sr-only">Loading...</span>
+            </div> 
+        </div>
+
+        :
         userPlaylist.length === 0 ? (
-            <div className="flex justify-center flex-col gap-5 items-center h-full w-full">
-                <div>
+            <div className="flex justify-center flex-col py-[120px] gap-5 items-center h-screen w-full">
+                <PlaylistModal
+                    isOpen={addPlaylistModal.isOpen}
+                    onClose={addPlaylistModal.close}
+                    primaryButtonCallback={handleAddPlaylist}
+                    status={"ADD"}
+                />
+                <div className="flex flex-col">
                     <span className="text-2xl font-bold text-center">TIDAK ADA USER PLAYLIST</span>
                     <span className="italic text-marmut-600">Anda tidak memiliki playlist, tambahkan playlist melalui tombol di bawah :D</span>
                 </div>

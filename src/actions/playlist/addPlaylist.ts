@@ -15,7 +15,7 @@ export const addPlaylist = async (formData: FormData, email: string) => {
 
         const { rows } = await sql`
             INSERT INTO USER_PLAYLIST (email_pembuat, id_user_playlist, judul, deskripsi, jumlah_lagu, tanggal_dibuat, id_playlist, total_durasi)
-            VALUES (${email}, gen_random_uuid(), ${judul}, ${deskripsi}, 0, CURRENT_DATE, ${newPlaylist.rows[0].id}, 0)
+            VALUES (${email}, gen_random_uuid(), ${judul}, ${deskripsi}, 0, CURRENT_DATE + INTERVAL '7 hours', ${newPlaylist.rows[0].id}, 0)
         `;
 
         return rows[0];

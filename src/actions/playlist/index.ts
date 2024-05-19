@@ -6,3 +6,4 @@ export { getPlaylistById } from './getPlaylistById';
 export { updatePlaylist } from './updatePlaylist';
 export { addPlaylistSong } from './addPlaylistSong';
 export { deletePlaylistSong } from './deletePlaylistSong';
+export { addAkunPlayPlaylist } from './addAkunPlayPlaylist';

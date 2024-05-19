@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { FiPlay } from "react-icons/fi";
 import { HiOutlineEye, HiOutlineInformationCircle, HiOutlinePencilAlt, HiOutlinePlay, HiOutlineTrash } from "react-icons/hi";
 import { PiPlay } from "react-icons/pi";
+import { addAkunPlayPlaylist } from "@/actions/playlist";
+import { useAuth } from "@/contexts";
 
 interface KontenProps {
     id: string;
@@ -27,10 +29,12 @@ interface SongProps {
 interface SongRowProps {
     data: SongProps
     handleDeletePlaylistSong: (idSong: string) => void;
+    isOwner: boolean
+    handlePlaySong: (idSong: string) => void
 }
 
 export const SongRow: React.FC<SongRowProps> = ({
-    data, handleDeletePlaylistSong
+    data, handleDeletePlaylistSong, isOwner, handlePlaySong
 }) => {
 
     const [artis, setArtis] = useState<string>('');
@@ -38,10 +42,6 @@ export const SongRow: React.FC<SongRowProps> = ({
 
     const router = useRouter();
     const pathname = usePathname();
-
-    const handlePlay = () => {
-        router.push('/play/dummy')
-    }
 
     const getSongData = async () => {
         try {
@@ -75,8 +75,17 @@ export const SongRow: React.FC<SongRowProps> = ({
             </div>
 
             <div className="col-span-1 flex flex-row items-center gap-1 px-2">
-            <text>{(konten.durasi / 60).toFixed(2)}</text>
-                <text>menit</text>
+                {(() => {
+                    const totalDurasi = konten.durasi;
+                    const hours = Math.floor(totalDurasi / 60);
+                    const minutes = totalDurasi % 60;
+                    return (
+                        <>
+                            {hours > 0 && <span className="mr-[1px]">{hours} jam</span>}
+                            <span className="mr-[1px]">{minutes} menit</span>
+                        </>
+                    );
+                })()}
             </div>
 
             <div className="col-span-1 flex-row items-center px-2 flex gap-[6px] justify-center">
@@ -84,13 +93,13 @@ export const SongRow: React.FC<SongRowProps> = ({
                     <HiOutlineInformationCircle size={21}/> 
                 </button>
 
-                <button className="bg-marmut-brown-500 text-marmut-light-brown-000 p-[7px] rounded-md" onClick={() => handlePlay()}>
+                <button className="bg-marmut-brown-500 text-marmut-light-brown-000 p-[7px] rounded-md" onClick={() => handlePlaySong(konten.id)}>
                     <PiPlay size={19}/>
                 </button>
 
-                <button className="bg-red-600 text-red-100 p-[7px] rounded-md" onClick={() => handleDeletePlaylistSong(konten.id)}>
+                {isOwner && <button className="bg-red-600 text-red-100 p-[7px] rounded-md" onClick={() => handleDeletePlaylistSong(konten.id)}>
                     <HiOutlineTrash size={21}/>
-                </button>
+                </button>}
             </div>
         </div>
     )

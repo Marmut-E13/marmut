@@ -9,6 +9,9 @@ export const getPlaylist = async (email: string) => {
         WHERE email_pembuat=${email}
         `;
 
+        console.log("ke sini", rows);
+        console.log("Ini juga", email)
+        
         return rows;
 
     } catch (error) {

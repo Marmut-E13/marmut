@@ -44,7 +44,7 @@ export const PlaylistModal: React.FC<ModalProps> = ({
 
     return (
         <div className={`fixed z-[999] top-0 left-0 w-full h-full flex justify-center items-center ${isOpen ? 'block' : 'hidden'}`} style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
-            <div className="flex flex-col w-[40%] gap-1 bg-marmut-000 rounded-xl p-6 text-marmut-900">
+            <div className="flex flex-col w-[40%] gap-1 bg-marmut-000 rounded-xl p-6 pb-4 text-marmut-900">
                 <div className="flex justify-end">
                     <button className="hover:bg-marmut-100 hover:text-marmut-600 p-2 rounded-[6px] text-[22px]" onClick={handleClose}>
                         <HiOutlineX />
@@ -53,7 +53,7 @@ export const PlaylistModal: React.FC<ModalProps> = ({
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3 px-[45px] pb-2">
                     <div className="flex justify-center">
-                        <text className="text-2xl font-semibold">{status === 'ADD' ? 'Add' : 'Edit'} PLAYLIST</text>
+                        <text className="text-2xl font-semibold">{status} PLAYLIST</text>
                     </div>
 
                     <div className="flex flex-col gap-[14px]">

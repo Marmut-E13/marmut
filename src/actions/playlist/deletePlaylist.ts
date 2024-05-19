@@ -4,20 +4,19 @@ import { sql } from "@vercel/postgres";
 
 export const deletePlaylist = async (idUserPlaylist: string, email: string) => {
 
+    console.log("masuk sini")
     try{
         await sql`
-        DELETE FROM USER_PLAYLIST
-        WHERE email_pembuat = ${email} AND id_user_playlist = ${idUserPlaylist}
-        `;
-
+            DELETE FROM AKUN_PLAY_USER_PLAYLIST
+            WHERE id_user_playlist=${idUserPlaylist};
+        `
         await sql`
-            UPDATE USER_PLAYLIST
-            SET jumlah_lagu = jumlah_lagu - 1
-            WHERE id_user_playlist=${idUserPlaylist} AND email=${email};
+            DELETE FROM USER_PLAYLIST
+            WHERE email_pembuat = ${email} AND id_user_playlist = ${idUserPlaylist}
         `;
 
         console.log("selesai");
     } catch (error) {
-
+        console.log("error: ", error)
     }
 }

@@ -53,7 +53,17 @@ export const PlaylistRow: React.FC<PlaylistRowProps> = ({
             </div>
 
             <div className="col-span-2 flex flex-row items-center gap-1 px-2">
-                <span>{(data.total_durasi / 60).toFixed(2)} menit</span>
+                {(() => {
+                    const totalDurasi = data.total_durasi;
+                    const hours = Math.floor(totalDurasi / 60);
+                    const minutes = totalDurasi % 60;
+                    return (
+                        <>
+                            {hours > 0 && <span className="mr-[1px]">{hours} jam</span>}
+                            <span className="mr-[1px]">{minutes} menit</span>
+                        </>
+                    );
+                })()}
             </div>
 
             <div className="col-span-1 flex-row items-center flex gap-[7px] justify-center ">

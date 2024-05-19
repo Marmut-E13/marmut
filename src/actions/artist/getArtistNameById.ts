@@ -11,7 +11,7 @@ export const getArtistNameById = async (id: string) => {
         WHERE AR.id = ${id};
     `;
 
-        console.log("ini nama", rows[0].nama);
+        // console.log("ini nama", rows[0].nama);
 
         return rows[0].nama;
 

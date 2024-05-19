@@ -9,6 +9,7 @@ export const getPlaylistById = async (id: string) => {
         WHERE id_playlist=${id} 
         `;
 
+        console.log(rows)
         return rows;
 
     } catch (error) {
