@@ -10,7 +10,7 @@ export const deleteDownloadedSong = async (title: string) => {
                 SELECT s.id_konten
                 FROM SONG s
                          INNER JOIN KONTEN k ON s.id_konten = k.id
-                WHERE k.title = ${title}
+                WHERE k.judul = ${title}
             )
         `;
     } catch (error) {
