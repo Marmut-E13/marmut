@@ -1,8 +1,17 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { addEpisode } from "@/actions/podcast/manage/addEpisode";
+
+const SuspenseCreatePodcastEpisode: React.FC = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CreatePodcastEpisode />
+        </Suspense>
+    );
+};
 
 const CreatePodcastEpisode: React.FC = () => {
     const router = useRouter();
@@ -62,4 +71,4 @@ const CreatePodcastEpisode: React.FC = () => {
     )
 }
 
-export default CreatePodcastEpisode;
+export default SuspenseCreatePodcastEpisode;
