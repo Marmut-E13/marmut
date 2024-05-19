@@ -1,10 +1,18 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { updatePodcast } from "@/actions/podcast/manage/updatePodcast";
 import { useAuth } from "@/contexts";
+
+const SuspenseCreatePodcast: React.FC = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CreatePodcast />
+        </Suspense>
+    );
+};
 
 const CreatePodcast: React.FC = () => {
     const router = useRouter();
@@ -84,4 +92,4 @@ const CreatePodcast: React.FC = () => {
     )
 }
 
-export default CreatePodcast;
+export default SuspenseCreatePodcast;
