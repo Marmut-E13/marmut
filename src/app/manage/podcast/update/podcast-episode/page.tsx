@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { updateEpisode } from "@/actions/podcast/manage/updateEpisode";
