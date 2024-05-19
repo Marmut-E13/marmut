@@ -37,7 +37,7 @@ export const fetchAlbums = async (email: string) => {
       GROUP BY a.id, l.nama;
     `;
     const { rows } = await sql.query(query, [email]);
-    console.log(rows);
+    console.log("tes", rows);
     return rows;
   } catch (error) {
     console.error("Failed to fetch albums:", error);
@@ -310,7 +310,7 @@ export const fetchSongsByAlbum = async (albumId: string, email: string) => {
   try {
     let query;
     if (email) {
-      // Query untuk mengambil lagu yang ditulis oleh songwriter tertentu dalam album
+
       query = `
         SELECT 
             k.id AS id,
@@ -318,23 +318,16 @@ export const fetchSongsByAlbum = async (albumId: string, email: string) => {
             k.durasi AS duration, 
             s.total_play AS totalPlay, 
             s.total_download AS totalDownload
-        FROM 
-            song s
-        JOIN 
-            konten k ON s.id_konten = k.id
-        JOIN 
-            songwriter_write_song sws ON s.id_konten = sws.id_song
-        JOIN 
-            songwriter sw ON sws.id_songwriter = sw.id
-        JOIN 
-            akun ak ON sw.email_akun = ak.email
-        WHERE 
-            s.id_album = $1 AND ak.email = $2;
+        FROM song s
+        JOIN  konten k ON s.id_konten = k.id
+        JOIN songwriter_write_song sws ON s.id_konten = sws.id_song
+        JOIN songwriter sw ON sws.id_songwriter = sw.id
+        JOIN akun ak ON sw.email_akun = ak.email
+        WHERE s.id_album = $1 AND ak.email = $2;
       `;
       const { rows } = await sql.query(query, [albumId, email]);
       return rows;
     } else {
-      // Query standar untuk mengambil semua lagu dalam album
       query = `
         SELECT 
             k.id AS id,
@@ -342,12 +335,9 @@ export const fetchSongsByAlbum = async (albumId: string, email: string) => {
             k.durasi AS duration, 
             s.total_play AS totalPlay, 
             s.total_download AS totalDownload
-        FROM 
-            song s
-        JOIN 
-            konten k ON s.id_konten = k.id
-        WHERE 
-            s.id_album = $1;
+        FROM song s
+        JOIN konten k ON s.id_konten = k.id
+        WHERE s.id_album = $1;
       `;
       const { rows } = await sql.query(query, [albumId]);
       return rows;

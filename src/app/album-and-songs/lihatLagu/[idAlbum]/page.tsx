@@ -40,7 +40,8 @@ const DaftarLagu = ({ params }: { params: { idAlbum: string } }) => {
         setAlbum(albumResponse);
   
         const isSongwriter = role.includes('songwriter');
-        const songsResponse: SongsResponse = await fetchSongsByAlbum(params.idAlbum, isSongwriter ? email || '' : '');
+        const isArtists = role.includes('artist');
+        const songsResponse: SongsResponse = await fetchSongsByAlbum(params.idAlbum, isSongwriter && !isArtists ? email || '' : '');
   
         if ('error' in songsResponse) {
           throw new Error(songsResponse.error);

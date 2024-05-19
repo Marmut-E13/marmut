@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, FormEvent } from 'react';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import { fetchSongwriters, fetchGenres, fetchAlbumById, fetchArtists, createSong, getArtist, getSongwriter } from '@/actions/albums/albumAndSongs/getAlbum';
 import { useAuth } from "@/contexts";
 
@@ -64,13 +64,14 @@ const TambahLagu = ({ params }: { params: { idAlbum: string } }) => {
     const formData = new FormData(event.target as HTMLFormElement);
     const judul = formData.get('judul') as string;
     const artistEmail = isArtist ? email : (formData.get('artists') as string);
-    const songwriterEmails = isSongwriter ? [email] : (formData.getAll('songwriters') as string[]);
+    const additionalSongwriterEmails = formData.getAll('songwriters') as string[];
+    const songwriterEmails = isSongwriter ? [email, ...additionalSongwriterEmails] : additionalSongwriterEmails;
     const genres = formData.getAll('genre') as string[];
     const durasi = parseInt(formData.get('durasi') as string, 10);
 
     if (isArtist) {
       const artistId = await getArtist(artistEmail);
-      const songwriterIds = formData.getAll('songwriters') as string[];
+      const songwriterIds = await getSongwriter(songwriterEmails);
       const response = await createSong({
         albumId: params.idAlbum, judul, artistId, songwriterIds, genres, durasi,
       });
@@ -128,7 +129,24 @@ const TambahLagu = ({ params }: { params: { idAlbum: string } }) => {
           {isSongwriter ? (
             <div className="col-span-2 flex items-center">
               <label htmlFor="songwriters" className="mr-4 w-1/4" style={{ color: '#606C38' }}>Songwriter:</label>
-              <input type="text" id="songwriter" name="songwriter" value={name} readOnly className="flex-grow p-2 rounded border" style={{ backgroundColor: '#FEFAE0' }} />
+              <Select
+                name="songwriters"
+                instanceId="songwriters"
+                isMulti
+                options={songwriterOptions}
+                className="flex-grow p-2 rounded border"
+                classNamePrefix="select"
+                placeholder="Pilih Songwriter"
+                defaultValue={[{ value: email, label: name }]}
+                components={{
+                  MultiValueRemove: (props) => {
+                    if (props.data.value === email) {
+                      return null;
+                    }
+                    return <components.MultiValueRemove {...props} />;
+                  }
+                }}
+              />
             </div>
           ) : (
             <div className="col-span-2 flex items-center">

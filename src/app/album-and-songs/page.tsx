@@ -3,7 +3,7 @@
 import React, { useEffect, useState, FormEvent } from 'react';
 import { useAuth } from "@/contexts";
 import { fetchAlbums, fetchLabels, fetchGenres, fetchSongwriters, fetchArtists, createAlbumAndSong, deleteAlbum, getArtist, getSongwriter} from '@/actions/albums/albumAndSongs/getAlbum';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 
 const AlbumAndSongs = () => {
   const { email, name, role } = useAuth();
@@ -61,10 +61,6 @@ const AlbumAndSongs = () => {
   const genreOptions = genres.map((genre) => ({ value: genre.genre, label: genre.genre }));
   const songwriterOptions = songwriters.map((songwriter) => ({ value: songwriter.id, label: songwriter.name }));
   const artistOptions = artists.map((artist) => ({ value: artist.id, label: artist.name }));
-
-  console.log(songwriterOptions);
-  console.log(artistOptions);
-  console.log(genreOptions);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -177,7 +173,25 @@ const AlbumAndSongs = () => {
             {isSongwriter ? (
               <div className="col-span-2 flex items-center">
                 <label htmlFor="songwriters" className="mr-4 w-1/4" style={{ color: '#606C38' }}>Songwriter:</label>
-                <input type="text" id="songwriter" name="songwriter" value={name} readOnly className="flex-grow p-2 rounded border" style={{ backgroundColor: '#FEFAE0' }} />
+                <Select
+                  name="songwriters"
+                  instanceId="songwriters"
+                  isMulti
+                  options={songwriterOptions}
+                  className="flex-grow p-2 rounded border"
+                  classNamePrefix="select"
+                  placeholder="Pilih Songwriter"
+                  defaultValue={[{ value: songwriters[0].id, label: name }]}
+                  isOptionDisabled={(option) => option.value === songwriters[0].id}
+                  components={{
+                    MultiValueRemove: (props) => {
+                      if (props.data.value === songwriters[0].id) {
+                        return null;
+                      }
+                      return <components.MultiValueRemove {...props} />;
+                    }
+                  }}
+                />
               </div>
             ) : (
               <div className="col-span-2 flex items-center">

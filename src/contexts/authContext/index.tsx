@@ -149,7 +149,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({
     const login = async (email: string, password: string): Promise<('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'label' | 'premium')[]> => {
         try {
             const userRoles = await loginUser(email, password);
-            const userData = await getUserData(email); // Assuming this function fetches user data including idPemilikHakCipta and name
+            const userData = await getUserData(email);
     
             if (userRoles !== undefined && userRoles !== null && userRoles[0] !== '') {
                 setIsAuthenticated(true);
