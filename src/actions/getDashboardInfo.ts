@@ -71,12 +71,12 @@ export const getDashboardInfo = async (email: string): Promise<DashboardInfo | n
                     kontak: rows[0].kontak,
                     roles: ['label']
                 };
-        
+
                 return dashboardInfo;
             }
         }
 
-        
+
 
         // Ambil roles menggunakan email
         const roles: ('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'premium' | 'label')[] = [];

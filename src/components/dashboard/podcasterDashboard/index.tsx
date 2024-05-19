@@ -7,14 +7,14 @@ import { useAuth } from "@/contexts";
 
 const PodcasterDashboard: React.FC = () => {
     const router = useRouter();
-    const { email, isAuthenticated } = useAuth(); // Menggunakan email dari useAuth
+    const { email, isAuthenticated } = useAuth(); // Using email from useAuth
     const [podcasts, setPodcasts] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchPodcasts = async () => {
             try {
                 if (isAuthenticated && email) {
-                    const fetchedPodcasts = await getPodcastsByPodcaster(email); // Menggunakan email saat memanggil fungsi getPodcastsByPodcaster
+                    const fetchedPodcasts = await getPodcastsByPodcaster(email); // Using email when calling getPodcastsByPodcaster
                     console.log("Fetched podcasts:", fetchedPodcasts);
                     setPodcasts(fetchedPodcasts);
                 }
@@ -28,22 +28,50 @@ const PodcasterDashboard: React.FC = () => {
         }
     }, [isAuthenticated, email]);
 
+    const formatDate = (dateString: string): string => {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            return "Invalid Date";
+        }
+        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    };
+
     return (
-        <div className="px-8 py-6">
-            <h1 className="text-xl font-bold mb-4">DAFTAR PODCAST</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {podcasts.map((podcast, index) => (
-                    <div key={index} className="bg-white rounded-lg shadow-md p-4">
-                        <h2 className="text-lg font-semibold mb-2">{podcast.title}</h2>
-                        <p className="mb-2">{podcast.description}</p>
-                        <p className="mb-2">Tanggal Rilis: {podcast.releaseDate}</p>
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Dengarkan Podcast
-                        </button>
-                    </div>
-                ))}
-            </div>
+        <div className="container mx-auto px-8 py-6">
+            <h1 className="text-2xl font-bold mb-6 text-center">Daftar Podcast</h1>
+            {podcasts.length === 0 ? (
+                <p className="text-center text-gray-600">Belum Memiliki Podcast</p>
+            ) : (
+                <div className="overflow-x-auto shadow-md rounded-lg">
+                    <table className="min-w-full bg-white">
+                        <thead className="bg-gray-200">
+                        <tr>
+                            <th className="py-3 px-6 border-b-2 border-gray-300 text-left leading-tight">Judul Podcast</th>
+                            <th className="py-3 px-6 border-b-2 border-gray-300 text-left leading-tight">Deskripsi</th>
+                            <th className="py-3 px-6 border-b-2 border-gray-300 text-left leading-tight">Tanggal Rilis</th>
+                            <th className="py-3 px-6 border-b-2 border-gray-300 text-left leading-tight">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {podcasts.map((podcast, index) => (
+                            <tr key={index} className="hover:bg-gray-100">
+                                <td className="py-4 px-6 border-b border-gray-300">{podcast.title}</td>
+                                <td className="py-4 px-6 border-b border-gray-300">{podcast.description}</td>
+                                <td className="py-4 px-6 border-b border-gray-300">{formatDate(podcast.releaseDate)}</td>
+                                <td className="py-4 px-6 border-b border-gray-300">
+                                    <button
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        onClick={() => router.push(`/podcasts/${podcast.id}`)}
+                                    >
+                                        Dengarkan Podcast
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 };
