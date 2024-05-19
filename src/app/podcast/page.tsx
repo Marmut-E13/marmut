@@ -51,10 +51,11 @@ const ListPodcast: React.FC = () => {
                             <tbody>
                                 {podcastList.map((PodcastProps, index) => (
                                 <tr key={index} id={PodcastProps.id_konten}>
-                                    <Link href={`/podcast/${PodcastProps.id_konten}`}>
-                                        <td>{PodcastProps.judul}</td>
-                                    </Link>
-
+                                   <td> 
+                                        <Link href={`/podcast/${PodcastProps.id_konten}`}>
+                                            {PodcastProps.judul}
+                                        </Link>
+                                    </td>
                                 </tr>
                                 ))}
                             </tbody>

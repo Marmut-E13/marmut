@@ -12,7 +12,7 @@ export const getPodcastDetails = async (idPodcast: string) => {
     `;
   
 
-    
+    console.log("podcastId", rows)
     return rows;
     
 } catch (error: any) {

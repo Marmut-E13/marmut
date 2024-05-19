@@ -7,6 +7,8 @@ import { getPodcastDetails } from '@/actions/podcast/getPodcastById'
 import { format, isValid } from 'date-fns';
 import { getEpisodeByPodcastId } from '@/actions/podcast/getEpisodeByPodcastId';
 import { getSumEpisodeDuration } from '@/actions/podcast/getSumEpisodeDuration';
+import { deleteEpisode } from '@/actions/podcast/manage/deleteEpisode'
+import { useSearchParams } from 'next/navigation';
 
 interface PodcastDetailsProps {
     judul: string;
@@ -16,7 +18,6 @@ interface PodcastDetailsProps {
     tahun: number;
 }
   
-
 interface PodcastEpisodeProps {
     id_episode: string;
     judul: string;
@@ -25,17 +26,22 @@ interface PodcastEpisodeProps {
     tanggal_rilis: Date;
 }
 
+
 interface totalEpisodeDurationProps {
     sum: number;
 }
 
-const Podcast = ({params}: {params: {idPodcast: string}}) => {
+const Podcast: React.FC = () => {
 
     const [podcastDetails, setPodcastDetails] = useState<PodcastDetailsProps>({} as any);
 
     const [podcastEpisodes, setPodcastEpisodes] = useState<PodcastEpisodeProps[]>([]);
 
     const[totalEpisodesDuration, setTotalEpisodesDuration] = useState<totalEpisodeDurationProps>({} as any);
+
+    const searchParams = useSearchParams()
+
+    const idPodcast = searchParams.get('id_konten') as string;
 
     const handleGetPodcastDetails = async (idPodcast: string) => {
         try {
@@ -67,14 +73,23 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
         }
     }
 
+    const handleDeleteEpisode = async (idEpisode: string) => {
+        try {
+            await deleteEpisode(idEpisode);
+            handleGetPodcastEpisodes(idPodcast);
+        } catch (error) {
+
+        }
+    }
+
 
 
 
     useEffect(() => {
-        handleGetPodcastDetails(params.idPodcast);
-        handleGetPodcastEpisodes(params.idPodcast);
-        handleGetEpisodeDurationSum(params.idPodcast);
-    }, [params]);
+        handleGetPodcastDetails(idPodcast);
+        handleGetPodcastEpisodes(idPodcast);
+        handleGetEpisodeDurationSum(idPodcast);
+    }, [idPodcast]);
 
 
     return (
@@ -101,8 +116,8 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
                 </div>
 
                 <div className="mb-6 mt-6">
-                <Link className="text-white bg-marmut-green-600 p-3 rounded-xl" href="/podcast">
-                    back to podcast
+                <Link className="text-white bg-marmut-green-600 p-3 rounded-xl" href="/manage/podcast">
+                    back to your podcast list
                 </Link>
                 </div>
 
@@ -116,6 +131,7 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
                             <th scope="col">Description</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Release Date</th>
+                            <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,6 +145,14 @@ const Podcast = ({params}: {params: {idPodcast: string}}) => {
                                     <td>{episode.durasi} menit</td>
                                 )}
                                 <td>{format(isValid(episode.tanggal_rilis) ?  new Date(episode.tanggal_rilis) : new Date(), 'dd/MM/yy')}</td>
+                                
+                                <td>
+                                    <Link href={`/manage/podcast/update/podcast-episode?id_episode=${episode.id_episode}&id_konten=${idPodcast}`}>
+                                        <p className='text-warning'><u>update</u></p>
+                                    </Link>
+                                    <button className='text-danger' onClick={() => handleDeleteEpisode(episode.id_episode)}><u>hapus</u></button>
+                                </td>
+                                
                             </tr>
                             ))}
                         </tbody>
