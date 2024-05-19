@@ -7,10 +7,9 @@ export const addDownloadedSong = async (idSong: string, email: string) => {
         const { rows } = await sql`
             SELECT COUNT(*)
             FROM DOWNLOADED_SONG
-            WHERE id_song=${idSong} AND id_song=${idSong};
+            WHERE id_song=${idSong} AND email_downloader=${email};
         `;
 
-        // console.log(rows);
 
         if (rows[0].count === '0') {
             const { rows } = await sql`
@@ -23,6 +22,8 @@ export const addDownloadedSong = async (idSong: string, email: string) => {
                 SET jumlah_download = jumlah_download + 1
                 WHERE id_konten=${email};
             `;
+
+
             return rows[0];
         } else {
             return { error: 'Error: Lagu sudah ada di downloaded song!!' };
