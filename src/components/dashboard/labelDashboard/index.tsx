@@ -26,7 +26,7 @@ const LabelDashboard: React.FC = () => {
     }, [isAuthenticated, username]);
 
     return (
-        <div>
+        <div className={"bg-red-500 h-screen"}>
             <h2>Daftar Album</h2>
             {albums.length === 0 ? (
                 <p>Belum Memproduksi Album</p>

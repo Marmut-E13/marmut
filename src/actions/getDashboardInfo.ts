@@ -37,6 +37,8 @@ export const getDashboardInfo = async (email: string): Promise<DashboardInfo | n
                 AKUN.email = ${email};
         `;
 
+        console.log(rows)
+
         if (rows.length === 0) {
             return null; // Return null if user not found
         }

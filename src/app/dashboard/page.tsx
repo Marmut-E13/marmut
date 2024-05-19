@@ -39,8 +39,9 @@ const Dashboard: React.FC = () => {
     const isArtist = roles.includes("artist");
     const isPodcaster = roles.includes("podcaster");
     const isSongwriter = roles.includes("songwriter");
-    const isLabel = roles.includes("label");
+    const isLabel = roles.includes('');
 
+    console.log(username, roles)
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-5">
             <div className="flex flex-col w-full items-start gap-3">
@@ -86,9 +87,12 @@ const Dashboard: React.FC = () => {
                 </div>
             </div>
 
+
+            <LabelDashboard/>
+
             {/* Display role-specific dashboards */}
             {isPodcaster && <PodcasterDashboard />}
-            {isLabel && <LabelDashboard />}
+            {/*{isLabel && <LabelDashboard />}*/}
             {isSongwriter && <SongwriterDashboard />}
             {isArtist && <ArtistDashboard />}
             {isUser && !isPodcaster && !isLabel && !isSongwriter && !isArtist && <UserDashboard />}

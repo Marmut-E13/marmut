@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
     return (
         <div>
             {/* {isAuthenticated ? <AuthenticatedNavbar /> : <UnauthenticatedNavbar />} */}
-             <AuthenticatedNavbar />
+            {/* <AuthenticatedNavbar />*/}
             {/*<UnauthenticatedNavbar />*/}
         </div>
     );
