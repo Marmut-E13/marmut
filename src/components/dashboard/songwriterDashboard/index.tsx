@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {getSongs, SongData} from "@/actions/getSongs";
+import { getSongs, SongData } from "@/actions/getSongs";
 import { useAuth } from "@/contexts";
 
 export const SongwriterDashboard: React.FC = () => {
@@ -27,23 +27,23 @@ export const SongwriterDashboard: React.FC = () => {
     }, [isAuthenticated, email]);
 
     if (!songs.length) {
-        return <text>Belum Memiliki Lagu</text>;
+        return <div className="text-center mt-4 text-gray-500">Belum Memiliki Lagu</div>;
     }
 
     return (
-        <div>
-            <h2>Daftar Lagu (Songwriter)</h2>
-            <ul>
+        <div className="p-4">
+            <h2 className="text-2xl font-bold mb-4">Daftar Lagu (Songwriter)</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {songs.map((song, index) => (
-                    <li key={index}>
-                        <h3>{song.title}</h3>
-                        <text>Tanggal Rilis: {song.releaseDate}</text>
-                        <text>Durasi: {song.duration} menit</text>
-                    </li>
+                    <div key={index} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+                        <h3 className="text-xl font-semibold mb-2">{song.title}</h3>
+                        <p className="text-gray-600">Tanggal Rilis: {song.releaseDate}</p>
+                        <p className="text-gray-600">Durasi: {song.duration} menit</p>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
 
-export default SongwriterDashboard
+export default SongwriterDashboard;
