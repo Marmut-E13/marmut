@@ -14,7 +14,7 @@ const Label: React.FC = () => {
 
         try {
             await registerLabel(formData);
-            router.push('/login')
+            router.push(`/auth/login`);
 
           } catch (error) {
             console.error("Failed to register label:", error);

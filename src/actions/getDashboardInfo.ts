@@ -5,17 +5,38 @@ import { sql } from "@vercel/postgres";
 export interface DashboardInfo {
     nama: string;
     email: string;
-    status_langganan: string;
+    status_langganan?: string;
     kontak: string;
-    kota_asal: string;
-    gender: string;
-    tempat_lahir: string;
-    tanggal_lahir: Date;
+    kota_asal?: string;
+    gender?: string;
+    tempat_lahir?: string;
+    tanggal_lahir?: Date;
     roles: ('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'premium' | 'label')[]; // Tambahkan roles sebagai array string
 }
 
 export const getDashboardInfo = async (email: string): Promise<DashboardInfo | null> => {
     try {
+        // const { rows } = await sql`
+        //     SELECT
+        //         AKUN.nama,
+        //         AKUN.email,
+        //         CASE
+        //             WHEN PREMIUM.email IS NOT NULL THEN 'Premium'
+        //             ELSE 'Non-Premium'
+        //         END AS status_langganan,
+        //         COALESCE(LABEL.kontak, '') AS kontak,
+        //         COALESCE(AKUN.kota_asal, '') AS kota_asal,
+        //         COALESCE(AKUN.gender::VARCHAR, '') AS gender,
+        //         COALESCE(AKUN.tempat_lahir, '') AS tempat_lahir,
+        //         AKUN.tanggal_lahir
+        //     FROM
+        //         AKUN
+        //     LEFT JOIN PREMIUM ON AKUN.email = PREMIUM.email
+        //     LEFT JOIN LABEL ON AKUN.email = LABEL.email
+        //     WHERE
+        //         AKUN.email = ${email};
+        // `;
+
         const { rows } = await sql`
             SELECT
                 AKUN.nama,
@@ -24,7 +45,6 @@ export const getDashboardInfo = async (email: string): Promise<DashboardInfo | n
                     WHEN PREMIUM.email IS NOT NULL THEN 'Premium'
                     ELSE 'Non-Premium'
                 END AS status_langganan,
-                COALESCE(LABEL.kontak, '') AS kontak,
                 COALESCE(AKUN.kota_asal, '') AS kota_asal,
                 COALESCE(AKUN.gender::VARCHAR, '') AS gender,
                 COALESCE(AKUN.tempat_lahir, '') AS tempat_lahir,
@@ -32,16 +52,31 @@ export const getDashboardInfo = async (email: string): Promise<DashboardInfo | n
             FROM
                 AKUN
             LEFT JOIN PREMIUM ON AKUN.email = PREMIUM.email
-            LEFT JOIN LABEL ON AKUN.email = LABEL.email
             WHERE
                 AKUN.email = ${email};
         `;
 
-        console.log(rows)
-
         if (rows.length === 0) {
-            return null; // Return null if user not found
+            const { rows } = await sql`
+                SELECT * FROM LABEL
+                WHERE email=${email}
+            `;
+
+            if (rows.length === 0){
+                return null;
+            } else {
+                const dashboardInfo: DashboardInfo = {
+                    nama: rows[0].nama,
+                    email: rows[0].email,
+                    kontak: rows[0].kontak,
+                    roles: ['label']
+                };
+
+                return dashboardInfo;
+            }
         }
+
+
 
         // Ambil roles menggunakan email
         const roles: ('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'premium' | 'label')[] = [];

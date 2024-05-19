@@ -7,14 +7,14 @@ import { useAuth } from "@/contexts";
 
 const PodcasterDashboard: React.FC = () => {
     const router = useRouter();
-    const { username, isAuthenticated } = useAuth(); // Menggunakan email dari useAuth
+    const { email, isAuthenticated } = useAuth(); // Menggunakan email dari useAuth
     const [podcasts, setPodcasts] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchPodcasts = async () => {
             try {
-                if (isAuthenticated && username) {
-                    const fetchedPodcasts = await getPodcastsByPodcaster(username); // Menggunakan email saat memanggil fungsi getPodcastsByPodcaster
+                if (isAuthenticated && email) {
+                    const fetchedPodcasts = await getPodcastsByPodcaster(email); // Menggunakan email saat memanggil fungsi getPodcastsByPodcaster
                     console.log("Fetched podcasts:", fetchedPodcasts);
                     setPodcasts(fetchedPodcasts);
                 }
@@ -26,7 +26,7 @@ const PodcasterDashboard: React.FC = () => {
         if (isAuthenticated) {
             fetchPodcasts();
         }
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     return (
         <div className="px-8 py-6">

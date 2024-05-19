@@ -8,14 +8,14 @@ import { useAuth } from "@/contexts"; // Pastikan lokasi useAuth benar
 
 const DownloadedSongs: React.FC = () => {
     const router = useRouter();
-    const { username, isAuthenticated } = useAuth(); // Menggunakan username dari useAuth
+    const { email, isAuthenticated } = useAuth(); // Menggunakan email dari useAuth
     const [downloadedSongs, setDownloadedSongs] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchDownloadedSongs = async () => {
             try {
-                if (isAuthenticated && username) {
-                    const songs = await getDownloadedSongs(username); // Gunakan username saat memanggil fungsi getDownloadedSongs
+                if (isAuthenticated && email) {
+                    const songs = await getDownloadedSongs(email); // Gunakan email saat memanggil fungsi getDownloadedSongs
                     console.log("Fetched downloaded songs:", songs);
                     setDownloadedSongs(songs);
                 }
@@ -27,7 +27,7 @@ const DownloadedSongs: React.FC = () => {
         if (isAuthenticated) {
             fetchDownloadedSongs();
         }
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     const handleDeleteSong = async (title: string) => {
         try {

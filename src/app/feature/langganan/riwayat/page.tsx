@@ -7,14 +7,14 @@ import { getTransactionHistory } from "@/actions/feature/getTransactionHistory";
 
 const RiwayatTransaksi: React.FC = () => {
     const router = useRouter();
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated } = useAuth();
     const [transactionHistory, setTransactionHistory] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchTransactionHistory = async () => {
-            if (isAuthenticated && username) {
+            if (isAuthenticated && email) {
                 try {
-                    const history = await getTransactionHistory(username);
+                    const history = await getTransactionHistory(email);
                     setTransactionHistory(history);
                 } catch (error) {
                     console.error("Failed to fetch transaction history:", error);
@@ -23,7 +23,7 @@ const RiwayatTransaksi: React.FC = () => {
         };
 
         fetchTransactionHistory();
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     return (
         <div className="px-8 py-6 bg-marmut-50 rounded-xl shadow-md">

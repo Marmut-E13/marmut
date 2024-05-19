@@ -8,14 +8,14 @@ import { useAuth } from "@/contexts";
 
 export const SongwriterDashboard: React.FC = () => {
     const [songs, setSongs] = useState<SongData[]>([]);
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated } = useAuth();
 
     useEffect(() => {
         const fetchSongs = async () => {
             try {
-                if (isAuthenticated && username) {
+                if (isAuthenticated && email) {
                     // Memanggil getSongs dengan peran pengguna sebagai "songwriter"
-                    const songwriterSongs = await getSongs(username, "songwriter");
+                    const songwriterSongs = await getSongs(email, "songwriter");
                     setSongs(songwriterSongs);
                 }
             } catch (error) {
@@ -24,10 +24,10 @@ export const SongwriterDashboard: React.FC = () => {
         };
 
         fetchSongs();
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     if (!songs.length) {
-        return <p>Belum Memiliki Lagu</p>;
+        return <text>Belum Memiliki Lagu</text>;
     }
 
     return (
@@ -37,8 +37,8 @@ export const SongwriterDashboard: React.FC = () => {
                 {songs.map((song, index) => (
                     <li key={index}>
                         <h3>{song.title}</h3>
-                        <p>Tanggal Rilis: {song.releaseDate}</p>
-                        <p>Durasi: {song.duration} detik</p>
+                        <text>Tanggal Rilis: {song.releaseDate}</text>
+                        <text>Durasi: {song.duration} menit</text>
                     </li>
                 ))}
             </ul>

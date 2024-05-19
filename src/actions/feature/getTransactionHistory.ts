@@ -11,12 +11,12 @@ interface TransactionData {
     nominal: number;
 }
 
-export const getTransactionHistory = async (username: string): Promise<TransactionData[]> => {
+export const getTransactionHistory = async (email: string): Promise<TransactionData[]> => {
     try {
         const { rows } = await sql`
             SELECT jenis_paket, email, timestamp_dimulai, timestamp_berakhir, metode_bayar, nominal
             FROM TRANSACTION
-            WHERE email = ${username}
+            WHERE email = ${email}
         `;
 
         // Map the rows to TransactionData

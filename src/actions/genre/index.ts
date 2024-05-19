@@ -1,0 +1,1 @@
+export { getGenre } from './getGenre';

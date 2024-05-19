@@ -11,13 +11,15 @@ import { useAuth } from "@/contexts";
 
 const Dashboard: React.FC = () => {
     const [dashboardInfo, setDashboardInfo] = useState<DashboardInfo | null>(null);
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated, role } = useAuth();
+
+    console.log(role)
 
     useEffect(() => {
         const fetchDashboardInfo = async () => {
             try {
-                if (isAuthenticated && username) {
-                    const info = await getDashboardInfo(username);
+                if (isAuthenticated && email) {
+                    const info = await getDashboardInfo(email);
                     setDashboardInfo(info);
                 }
             } catch (error) {
@@ -28,7 +30,7 @@ const Dashboard: React.FC = () => {
         if (isAuthenticated) {
             fetchDashboardInfo();
         }
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     if (!dashboardInfo) {
         return <div>Loading...</div>;
@@ -39,9 +41,8 @@ const Dashboard: React.FC = () => {
     const isArtist = roles.includes("artist");
     const isPodcaster = roles.includes("podcaster");
     const isSongwriter = roles.includes("songwriter");
-    const isLabel = roles.includes('');
+    const isLabel = roles.includes("label");
 
-    console.log(username, roles)
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-5">
             <div className="flex flex-col w-full items-start gap-3">
@@ -74,7 +75,7 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div className="flex flex-row gap-2">
                         <span className="font-semibold">Tanggal Lahir:</span>
-                        <span>{new Date(dashboardInfo.tanggal_lahir).toLocaleDateString()}</span>
+                        <span>{new Date(dashboardInfo.tanggal_lahir??'').toLocaleDateString()}</span>
                     </div>
                     <div className="flex flex-row gap-2">
                         <span className="font-semibold">Role:</span>
@@ -87,12 +88,9 @@ const Dashboard: React.FC = () => {
                 </div>
             </div>
 
-
-            <LabelDashboard/>
-
             {/* Display role-specific dashboards */}
             {isPodcaster && <PodcasterDashboard />}
-            {/*{isLabel && <LabelDashboard />}*/}
+            {isLabel && <LabelDashboard />}
             {isSongwriter && <SongwriterDashboard />}
             {isArtist && <ArtistDashboard />}
             {isUser && !isPodcaster && !isLabel && !isSongwriter && !isArtist && <UserDashboard />}

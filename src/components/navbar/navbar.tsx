@@ -1,3 +1,4 @@
+
 "use client"
 
 // import React, { useEffect, useState } from "react";
@@ -12,9 +13,7 @@ export const Navbar: React.FC = () => {
 
     return (
         <div>
-            {/* {isAuthenticated ? <AuthenticatedNavbar /> : <UnauthenticatedNavbar />} */}
-            {/* <AuthenticatedNavbar />*/}
-            {/*<UnauthenticatedNavbar />*/}
+            {isAuthenticated ? <AuthenticatedNavbar /> : <UnauthenticatedNavbar />}
         </div>
     );
 };

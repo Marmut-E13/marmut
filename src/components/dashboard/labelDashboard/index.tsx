@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -5,14 +6,14 @@ import { getAlbumsByLabel, AlbumData } from "@/actions/getAlbumsByLabel";
 import { useAuth } from "@/contexts";
 
 const LabelDashboard: React.FC = () => {
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated } = useAuth();
     const [albums, setAlbums] = useState<AlbumData[]>([]);
 
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                if (isAuthenticated && username) {
-                    const fetchedAlbums = await getAlbumsByLabel(username);
+                if (isAuthenticated && email) {
+                    const fetchedAlbums = await getAlbumsByLabel(email);
                     setAlbums(fetchedAlbums);
                 }
             } catch (error) {
@@ -23,20 +24,20 @@ const LabelDashboard: React.FC = () => {
         if (isAuthenticated) {
             fetchAlbums();
         }
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     return (
-        <div className={"bg-red-500 h-screen"}>
+        <div>
             <h2>Daftar Album</h2>
             {albums.length === 0 ? (
-                <p>Belum Memproduksi Album</p>
+                <text>Belum Memproduksi Album</text>
             ) : (
                 <div>
                     {albums.map((album, index) => (
                         <div key={index}>
                             <h3>{album.title}</h3>
-                            <p>Jumlah Lagu: {album.numberOfSongs}</p>
-                            <p>Total Durasi: {album.totalDuration} detik</p>
+                            <text>Jumlah Lagu: {album.numberOfSongs}</text>
+                            <text>Total Durasi: {album.totalDuration} menit</text>
                         </div>
                     ))}
                 </div>

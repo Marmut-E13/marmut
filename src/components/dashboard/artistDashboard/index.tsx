@@ -6,14 +6,14 @@ import { useAuth } from "@/contexts";
 
 export const ArtistDashboard: React.FC = () => {
     const [songs, setSongs] = useState<SongData[]>([]);
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated } = useAuth();
 
     useEffect(() => {
         const fetchSongs = async () => {
             try {
-                if (isAuthenticated && username) {
+                if (isAuthenticated && email) {
                     // Memanggil getSongs dengan peran pengguna sebagai "artist"
-                    const artistSongs = await getSongs(username, "artist");
+                    const artistSongs = await getSongs(email, "artist");
                     setSongs(artistSongs);
                 }
             } catch (error) {
@@ -22,10 +22,10 @@ export const ArtistDashboard: React.FC = () => {
         };
 
         fetchSongs();
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     if (!songs.length) {
-        return <p>Belum Memiliki Lagu</p>;
+        return <text>Belum Memiliki Lagu</text>;
     }
 
     return (
@@ -35,8 +35,8 @@ export const ArtistDashboard: React.FC = () => {
                 {songs.map((song, index) => (
                     <div key={index} className="bg-white p-4 rounded-lg shadow-md">
                         <h3 className="text-xl font-semibold mb-2">{song.title}</h3>
-                        <p>Tanggal Rilis: {song.releaseDate}</p>
-                        <p>Durasi: {song.duration} detik</p>
+                        <text>Tanggal Rilis: {song.releaseDate}</text>
+                        <text>Durasi: {song.duration} menit</text>
                     </div>
                 ))}
             </div>

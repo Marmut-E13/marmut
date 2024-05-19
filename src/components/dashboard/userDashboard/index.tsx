@@ -6,13 +6,13 @@ import { useAuth } from "@/contexts"; // Pastikan jalur yang benar
 
 export const UserDashboard: React.FC = () => {
     const [playlists, setPlaylists] = useState<PlaylistData[]>([]);
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated } = useAuth();
 
     useEffect(() => {
         const fetchUserPlaylists = async () => {
             try {
-                if (isAuthenticated && username) {
-                    const userPlaylists = await getUserPlaylists(username);
+                if (isAuthenticated && email) {
+                    const userPlaylists = await getUserPlaylists(email);
                     setPlaylists(userPlaylists);
                 }
             } catch (error) {
@@ -21,10 +21,10 @@ export const UserDashboard: React.FC = () => {
         };
 
         fetchUserPlaylists();
-    }, [isAuthenticated, username]);
+    }, [isAuthenticated, email]);
 
     if (!playlists.length) {
-        return <p>Belum Memiliki Playlist</p>;
+        return <text>Belum Memiliki Playlist</text>;
     }
 
     return (
@@ -34,10 +34,10 @@ export const UserDashboard: React.FC = () => {
                 {playlists.map((playlist, index) => (
                     <li key={index}>
                         <h3>{playlist.title}</h3>
-                        <p>{playlist.description}</p>
-                        <p>Jumlah Lagu: {playlist.songCount}</p>
-                        <p>Total Durasi: {playlist.totalDuration} detik</p>
-                        <p>Tanggal Dibuat: {playlist.creationDate}</p>
+                        <text>{playlist.description}</text>
+                        <text>Jumlah Lagu: {playlist.songCount}</text>
+                        <text>Total Durasi: {playlist.totalDuration} menit</text>
+                        <text>Tanggal Dibuat: {playlist.creationDate}</text>
                     </li>
                 ))}
             </ul>

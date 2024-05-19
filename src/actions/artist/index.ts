@@ -1,0 +1,1 @@
+export { getArtistNameById } from './getArtistNameById';

@@ -8,7 +8,7 @@ import { saveTransaction } from "@/actions/feature/saveTransaction";
 const Pembayaran: React.FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { username, isAuthenticated } = useAuth();
+    const { email, isAuthenticated } = useAuth();
     const [paketJenis, setPaketJenis] = useState<string | null>(null);
     const [paketHarga, setPaketHarga] = useState<number | null>(null);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("");
@@ -23,7 +23,7 @@ const Pembayaran: React.FC = () => {
     }, [searchParams]);
 
     const handleSubmit = async () => {
-        if (!isAuthenticated || !username || !paketJenis || paketHarga === null) {
+        if (!isAuthenticated || !email || !paketJenis || paketHarga === null) {
             console.error("User is not authenticated or package details are missing");
             return;
         }
@@ -33,7 +33,7 @@ const Pembayaran: React.FC = () => {
 
             const transactionData = {
                 jenis_paket: paketJenis,
-                email: username,
+                email: email,
                 timestamp_dimulai: timestampDimulai,
                 timestamp_berakhir: timestampBerakhir,
                 metode_bayar: selectedPaymentMethod,
