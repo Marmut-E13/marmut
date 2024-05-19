@@ -2,16 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { getDashboardInfo, DashboardInfo } from "@/actions/getDashboardInfo";
-import { LabelDashboard } from "@/components/dashboard/labelDashboard";
+import LabelDashboard from "@/components/dashboard/labelDashboard";
 import PodcasterDashboard from "@/components/dashboard/podcasterDashboard";
 import { UserDashboard } from "@/components/dashboard/userDashboard";
 import { SongwriterDashboard } from "@/components/dashboard/songwriterDashboard";
-import { ArtistDashboard } from "@/components/dashboard/artistDashboard"; // Import ArtistDashboard
+import { ArtistDashboard } from "@/components/dashboard/artistDashboard";
 import { useAuth } from "@/contexts";
 
 const Dashboard: React.FC = () => {
     const [dashboardInfo, setDashboardInfo] = useState<DashboardInfo | null>(null);
-    const { username, isAuthenticated } = useAuth(); // Tidak lagi menggunakan roles dari useAuth
+    const { username, isAuthenticated } = useAuth();
 
     useEffect(() => {
         const fetchDashboardInfo = async () => {
@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    const roles = dashboardInfo.roles; // Mengambil roles dari dashboardInfo
+    const roles = dashboardInfo.roles;
     const isUser = roles.includes("pengguna");
     const isArtist = roles.includes("artist");
     const isPodcaster = roles.includes("podcaster");
@@ -44,7 +44,6 @@ const Dashboard: React.FC = () => {
     return (
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-5">
             <div className="flex flex-col w-full items-start gap-3">
-                {/* Displaying user details */}
                 <div>
                     <div className="flex flex-row gap-[10px]">
                         <span className="font-semibold">Nama:</span>
