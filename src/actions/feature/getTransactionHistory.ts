@@ -29,6 +29,8 @@ export const getTransactionHistory = async (email: string): Promise<TransactionD
             nominal: row.nominal
         }));
 
+        console.log("cek ke sini", transactionHistory)
+
         return transactionHistory;
     } catch (error) {
         console.error("Failed to fetch transaction history:", error);

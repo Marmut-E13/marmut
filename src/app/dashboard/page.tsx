@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { getDashboardInfo, DashboardInfo } from "@/actions/getDashboardInfo";
-import LabelDashboard from "@/components/dashboard/labelDashboard";
-import PodcasterDashboard from "@/components/dashboard/podcasterDashboard";
 import { UserDashboard } from "@/components/dashboard/userDashboard";
 import { SongwriterDashboard } from "@/components/dashboard/songwriterDashboard";
 import { ArtistDashboard } from "@/components/dashboard/artistDashboard";
 import { useAuth } from "@/contexts";
+import PodcasterDashboard from "@/components/dashboard/podcasterDashboard";
+import LabelDashboard from "@/components/dashboard/labelDashboard";
 
 const Dashboard: React.FC = () => {
     const [dashboardInfo, setDashboardInfo] = useState<DashboardInfo | null>(null);

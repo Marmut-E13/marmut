@@ -8,7 +8,7 @@ export const AuthenticatedNavbar: React.FC = () => {
     const { logout, role } = useAuth();
 
 
-    console.log(localStorage)
+    // console.log(localStorage)
 
     return (
         <div className="flex flex-row w-screen bg-marmut-dark-green-300 z-[999] fixed gap-3 px-5 py-2 justify-between items-center h-[62px]">
@@ -35,11 +35,12 @@ export const AuthenticatedNavbar: React.FC = () => {
                     {role.includes('podcaster') &&
                         <button className="hover:bg-marmut-green-100 px-[10px]">Podcast</button>}
                     {(role.includes('artist') || role.includes('songwriter')) &&
-                        <button className="hover:bg-marmut-green-100 px-[10px] whitespace-nowrap">Album &
+                        <button className="hover:bg-marmut-green-100 px-[10px] whitespace-nowrap" onClick={() => router.push('/album-and-songs')}>Album &
                             Songs</button>}
-                    {role.includes('label') && <button className="hover:bg-marmut-green-100 px-[10px]">Album</button>}
+                    {role.includes('label') && <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/album-and-songs')}>Album</button>}
                     {(role.includes('artist') || role.includes('songwriter') || role.includes('label')) &&
-                        <button className="hover:bg-marmut-green-100 px-[10px]">Royalty</button>}
+                        
+                        <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push('/royalti')}>Royalty</button>}
                 </div>
                 <button className="bg-marmut-brown-700 px-3 py-[6px] rounded-lg text-marmut-000 hover:bg-marmut-light-brown-200 hover:text-marmut-brown-800" onClick={logout}>Logout</button>
             </div>

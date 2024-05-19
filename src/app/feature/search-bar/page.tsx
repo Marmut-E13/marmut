@@ -36,7 +36,7 @@ const SearchPage: React.FC = () => {
                 <button onClick={handleSearch} className="bg-marmut-green-600 text-white py-2 px-4 rounded-r-md border-l-0">Search</button>
             </div>
             {searchResults.length === 0 ? (
-                <p className="text-gray-600">Maaf, pencarian untuk "{query}" tidak ditemukan</text>
+                <p className="text-gray-600">Maaf, pencarian untuk "{query}" tidak ditemukan</p>
             ) : (
                 <table className="w-full border-collapse border mt-4">
                     <thead>
