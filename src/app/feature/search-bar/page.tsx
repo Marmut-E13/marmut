@@ -17,10 +17,10 @@ const SearchPage: React.FC = () => {
         }
     };
 
-    const handleViewDetail = (title: string, type: string) => {
-        console.log(`View detail of ${type}: ${title}`);
-        // Implement navigation to detail page based on type and title
-    };
+    // const handleViewDetail = (title: string, type: string) => {
+    //     console.log(`View detail of ${type}: ${title}`);
+    //     // Implement navigation to detail page based on type and title
+    // };
 
     return (
         <div className="p-4">
@@ -53,9 +53,9 @@ const SearchPage: React.FC = () => {
                             <td className="border p-3">{item.type}</td>
                             <td className="border p-3">{item.title}</td>
                             <td className="border p-3">{item.by}</td>
-                            <td className="border p-3">
+                            {/* <td className="border p-3">
                                 <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">View</button>
-                            </td>
+                            </td> */}
                         </tr>
                     ))}
                     </tbody>
