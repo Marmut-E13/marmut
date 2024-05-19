@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts";
@@ -89,4 +90,10 @@ const Pembayaran: React.FC = () => {
     );
 };
 
-export default Pembayaran;
+const SuspendedPembayaran = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <Pembayaran />
+    </Suspense>
+);
+
+export default SuspendedPembayaran;
