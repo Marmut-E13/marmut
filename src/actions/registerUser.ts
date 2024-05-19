@@ -28,6 +28,11 @@ export async function registerUser(formData: FormData) {
     `;
     }
 
+    await sql`
+      INSERT INTO NONPREMIUM (email)
+      VALUES (${email});
+    `
+
     if (podcasterFlag) {
       await sql`
         INSERT INTO PODCASTER (email)
