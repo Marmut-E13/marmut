@@ -203,7 +203,6 @@ const PlaySong = ({params}: {params: {idSong: string}}) => {
                 <span className="sr-only">Loading...</span>
             </div> 
         </div>
-
         :
         <div className="flex flex-col h-screen w-screen py-[120px] px-[120px] items-center gap-5">
             <AddSongModal 
@@ -216,7 +215,7 @@ const PlaySong = ({params}: {params: {idSong: string}}) => {
                 isOpen={SuccessModall.isOpen}
                 onClose={SuccessModall.close}
                 primaryButtonCallback={tipe == "playlist" ? handleSuccessAdd : () => router.push('/feature/downloaded-song')}
-                judul={song.konten?.judul}
+                judul={song?.konten?.judul}
                 idPlaylist={idPlaylist}
                 playlist={playlistName}
                 tipe={tipe}
@@ -226,7 +225,7 @@ const PlaySong = ({params}: {params: {idSong: string}}) => {
                 isOpen={failModal.isOpen}
                 onClose={failModal.close}
                 primaryButtonCallback={tipe == "playlist" ? handleSuccessAdd : () => router.push('/feature/downloaded-song')}
-                judul={song.konten?.judul}
+                judul={song?.konten?.judul}
                 idPlaylist={idPlaylist}
                 playlist={playlistName}
                 tipe={tipe}

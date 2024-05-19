@@ -10,7 +10,7 @@ export const loginUser = async (email: string, password: string) => {
     `;
 
     if (rows[0].count > 0) {
-      await sql`CALL cek_status_langganan(${email})`
+      // await sql`CALL cek_status_langganan(${email})`
       const roles: ('' | 'pengguna' | 'podcaster' | 'songwriter' | 'artist' | 'premium')[] = [];
 
       const [artistRoles, songwriterRoles, podcasterRoles, premiumRoles] = await Promise.all([
@@ -39,7 +39,7 @@ export const loginUser = async (email: string, password: string) => {
         roles.push('pengguna');
       }
 
-      console.log("ini roles:", roles);
+      // console.log("ini roles:", roles);
 
       return roles as ("" | "pengguna" | "podcaster" | "songwriter" | "artist" | "premium")[];
 
@@ -51,7 +51,7 @@ export const loginUser = async (email: string, password: string) => {
     `;
 
     if (labelResult.rows[0].count > 0) {
-      
+
       return ['label'];
     }
 

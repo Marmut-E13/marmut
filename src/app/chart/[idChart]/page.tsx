@@ -15,7 +15,7 @@ interface ChartProps {
 }
 
 interface ChartSongProps {
-    id: string;
+    id_konten: string;
     judul: string;
     nama: string;
     tanggal_rilis: string;
@@ -79,13 +79,13 @@ const Details = ({params}: {params: {idChart: string}}) => {
                     </thead>
                     <tbody>
                     {chartSongList.map((song) => (
-                        <tr key={song.id}>
+                        <tr key={song.id_konten}>
                         <td>{song.judul}</td>
                         <td>{song.nama}</td>
                         <td>{format(isValid(song.tanggal_rilis) ?  new Date(song.tanggal_rilis) : new Date(), 'dd/MM/yy')}</td>
                         <td>{song.total_play}</td>
                         <td>
-                            <Link href={`/play/${song.id}`}>
+                            <Link href={`/play/${song.id_konten}`}>
                                     <p className='text-primary'><u>details</u></p>
                             </Link>
                         </td>
