@@ -1,22 +1,24 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { addPodcast } from "@/actions/podcast/manage/addPodcast"
-import { useAuth } from "@/contexts";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { updatePodcast } from "@/actions/podcast/manage/updatePodcast";
+import { useAuth } from "@/contexts";
 
+const SuspenseCreatePodcast: React.FC = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CreatePodcast />
+        </Suspense>
+    );
+};
 
 const CreatePodcast: React.FC = () => {
     const router = useRouter();
-    
     const { email } = useAuth();
-
-    const searchParams = useSearchParams()
-
+    const searchParams = useSearchParams();
     const idPodcast = searchParams.get('id_konten') as string;
-
-
     const [selectedOptions, setSelectedOptions] = useState({
         'romance-flag': false,
         'funny-flag': false,
@@ -33,12 +35,12 @@ const CreatePodcast: React.FC = () => {
         }));
     };
     
-    const handleAddPodcast = async (e: FormEvent<HTMLFormElement>) => {
+    const handleUpdatePodcast = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
 
         try {
-            if (formData.get('judul') as string === '') {
+            if (formData.get('judul') === '') {
                 alert('Judul is required and cannot be an empty string.');
                 return; // Prevent form submission
             }
@@ -53,17 +55,17 @@ const CreatePodcast: React.FC = () => {
             }
 
             await updatePodcast(formData, email, idPodcast);
-            router.replace(`/manage/podcast`)
+            router.replace(`/manage/podcast`);
 
-          } catch (error) {
+        } catch (error) {
             console.error("Failed to update podcast:", error);
-          }
-    }
+            alert("Failed to update podcast. Please try again later.");
+        }
+    };
 
     return (
         <div className="px-[120px] flex justify-center py-[90px]">
-            
-            <form onSubmit={handleAddPodcast} className="min-w-[600px] border-[2px] border-stonks-700 rounded-xl p-[55px] flex flex-col gap-4">
+            <form onSubmit={handleUpdatePodcast} className="min-w-[600px] border-[2px] border-stonks-700 rounded-xl p-[55px] flex flex-col gap-4">
                 <p className="center text-xl font-bold">Update Podcast</p>
                 <div>
                     <label className="form-label">Judul</label>
@@ -74,35 +76,13 @@ const CreatePodcast: React.FC = () => {
                     <label className="form-label">Genre</label>
 
                     <div className="flex fliex-row justify-between">
-                        <div className="flex gap-2">
-                            <input className="form-check-input border-stonks-500" name="romance-flag" type="checkbox" value="1" 
-                            checked={selectedOptions['romance-flag']} onChange={handleCheckboxChange}/>
-                            <label>Romance</label>
-                        </div>
-
-                        <div className="flex gap-2">
-                            <input className="form-check-input border-stonks-500" name="funny-flag" type="checkbox" value="1" 
-                            checked={selectedOptions['funny-flag']} onChange={handleCheckboxChange}/>
-                            <label>Funny</label>
-                        </div>
-
-                        <div className="flex gap-2">
-                            <input className="form-check-input border-stonks-500" name="family-flag" type="checkbox" value="1" 
-                            checked={selectedOptions['family-flag']} onChange={handleCheckboxChange}/>
-                            <label>Family</label>
-                        </div>
-
-                        <div className="flex gap-2">
-                            <input className="form-check-input border-stonks-500" name="politics-flag" type="checkbox" value="1"
-                            checked={selectedOptions['politics-flag']} onChange={handleCheckboxChange}/>
-                            <label>Politics</label>
-                        </div>
-
-                        <div className="flex gap-2">
-                            <input className="form-check-input border-stonks-500" name="education-flag" type="checkbox" value="1"
-                            checked={selectedOptions['education-flag']} onChange={handleCheckboxChange}/>
-                            <label>Education</label>
-                        </div>
+                        {Object.entries(selectedOptions).map(([key, value]) => (
+                            <div className="flex gap-2" key={key}>
+                                <input className="form-check-input border-stonks-500" name={key} type="checkbox" value="1" 
+                                checked={value} onChange={handleCheckboxChange}/>
+                                <label>{key.split('-')[0]}</label>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -112,4 +92,4 @@ const CreatePodcast: React.FC = () => {
     )
 }
 
-export default CreatePodcast;
+export default SuspenseCreatePodcast;
