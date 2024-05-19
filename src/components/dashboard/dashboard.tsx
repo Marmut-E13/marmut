@@ -4,7 +4,6 @@ export const Dashboard: React.FC = () => {
     return (
         <div>
             <UserDashboard />
-            hai
         </div>
     )
 }

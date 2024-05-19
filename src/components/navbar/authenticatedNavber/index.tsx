@@ -25,7 +25,7 @@ export const AuthenticatedNavbar: React.FC = () => {
                             onClick={() => router.push('/feature/search-bar')}>Search
                     </button>
                     {role.includes('pengguna') &&
-                        <button className="hover:bg-marmut-green-100 px-[10px]">Chart</button>}
+                        <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push(`chart`)}>Chart</button>}
                     {role.includes('pengguna') && <button className="hover:bg-marmut-green-100 px-[10px]"
                                                           onClick={() => router.push('/feature/langganan')}>Subscribe</button>}
                     {role.includes('pengguna') &&
@@ -33,7 +33,7 @@ export const AuthenticatedNavbar: React.FC = () => {
                     {role.includes('premium') && <button className="hover:bg-marmut-green-100 px-[10px]"
                                                          onClick={() => router.push('/feature/downloaded-song')}>Download</button>}
                     {role.includes('podcaster') &&
-                        <button className="hover:bg-marmut-green-100 px-[10px]">Podcast</button>}
+                        <button className="hover:bg-marmut-green-100 px-[10px]" onClick={() => router.push(`manage/podcast`)}>Podcast</button>}
                     {(role.includes('artist') || role.includes('songwriter')) &&
                         <button className="hover:bg-marmut-green-100 px-[10px] whitespace-nowrap" onClick={() => router.push('/album-and-songs')}>Album &
                             Songs</button>}
