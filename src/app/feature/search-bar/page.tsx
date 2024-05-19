@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { getSearchResult } from "@/actions/feature/getSearchResult"; // Sesuaikan path sesuai struktur proyekmu
 
+
 const SearchPage: React.FC = () => {
     const [query, setQuery] = useState<string>("");
     const [searchResults, setSearchResults] = useState<any[]>([]); // Menyimpan hasil pencarian
@@ -17,10 +18,6 @@ const SearchPage: React.FC = () => {
         }
     };
 
-    const handleViewDetail = (title: string, type: string) => {
-        console.log(`View detail of ${type}: ${title}`);
-        // Implement navigation to detail page based on type and title
-    };
 
     return (
         <div className="p-4">
@@ -44,7 +41,6 @@ const SearchPage: React.FC = () => {
                         <th className="border p-3">Tipe</th>
                         <th className="border p-3">Judul lagu</th>
                         <th className="border p-3">Oleh</th>
-                        <th className="border p-3">Detail</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,9 +49,6 @@ const SearchPage: React.FC = () => {
                             <td className="border p-3">{item.type}</td>
                             <td className="border p-3">{item.title}</td>
                             <td className="border p-3">{item.by}</td>
-                            <td className="border p-3">
-                                <button onClick={() => handleViewDetail(item.title, item.type)} className="bg-marmut-green-600 text-white py-1 px-2 rounded-md mr-2">View</button>
-                            </td>
                         </tr>
                     ))}
                     </tbody>
