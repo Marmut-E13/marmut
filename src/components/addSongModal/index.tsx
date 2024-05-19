@@ -2,37 +2,37 @@ import { HiOutlineX } from "react-icons/hi"
 import { Dropdown } from "../dropdown";
 import { useEffect, useState } from "react";
 import { getAllSong } from "@/actions/song";
+import { getPlaylist } from "@/actions/playlist";
+import { useAuth } from "@/contexts";
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     primaryButtonCallback: (id: string) => void
-    error: string
+    // error: string
 }
 
-export const SongModal: React.FC<ModalProps> = ({
-    isOpen, onClose, primaryButtonCallback, error
+export const AddSongModal: React.FC<ModalProps> = ({
+    isOpen, onClose, primaryButtonCallback
 }) => {
     const [options, setOptions] = useState<{display: string, value: string}[]>([{display: "", value: "a"}])
     const [dropdownValue, setDropdownValue] = useState<string>('');
+    const { email } = useAuth();
 
-    const handleGetAllSong = async() => {
-        const res = await getAllSong();
+    const handleGetAllPlaylist = async() => {
+        const res = await getPlaylist(email);
 
-        const formattedOptions = res?.map(song => ({
-            display: song.judul,
-            value: song.id
+        const formattedOptions = res?.map(playlist => ({
+            display: playlist.judul,
+            value: playlist.id_playlist
         }));
 
         setOptions(formattedOptions as any);
-
-
-
     }
 
     useEffect(() => {
-        handleGetAllSong();
-    }, [])
+        handleGetAllPlaylist();
+    }, [email])
 
     return (
         <div className={`fixed z-[999] top-0 left-0 w-full h-full flex justify-center items-center ${isOpen ? 'block' : 'hidden'}`} style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
@@ -56,8 +56,6 @@ export const SongModal: React.FC<ModalProps> = ({
                             setDropdownValue={setDropdownValue}
                             options={options}
                         />
-
-                        {error && <text className="text-danger-100">{error}</text>}
                     </div>
 
                     <button className="mt-3 bg-marmut-dark-green-300 text-marmut-000 flex flex-row justify-center py-2 px-3 items-center rounded-md" onClick={() => primaryButtonCallback(dropdownValue)}>

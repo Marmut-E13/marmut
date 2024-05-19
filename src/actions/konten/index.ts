@@ -1,0 +1,1 @@
+export { getKontenById } from './getKontenById';

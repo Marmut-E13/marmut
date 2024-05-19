@@ -39,7 +39,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 </div>
             </div>
 
-            <div className={`${isOpen ? "flex" : "hidden"} flex-col absolute top-[105%] w-full items-center overflow-y-auto rounded-b-md transition-all duration-300`}>
+            <div className={`${isOpen ? "flex" : "hidden"} flex-col absolute top-[105%] w-full items-center max-h-[250px] overflow-y-auto rounded-b-md transition-all duration-300`}>
                 {options.map(({display, value}, key) => (
                     <div key={key} className="flex flex-col w-full text-[16px]">
                         <div className={`${value != dropdownValue ? "block" : "hidden"} flex flex-row cursor-pointer bg-white hover:bg-marmut-100 gap-2 px-3 py-2 items-center font-medium`} onClick={() => {setDropdownValue(value), setIsOpen(false)}}>
