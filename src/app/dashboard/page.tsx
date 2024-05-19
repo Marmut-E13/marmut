@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useEffect, useState } from "react";
 import { getDashboardInfo, DashboardInfo } from "@/actions/getDashboardInfo";
@@ -11,9 +11,7 @@ import { useAuth } from "@/contexts";
 
 const Dashboard: React.FC = () => {
     const [dashboardInfo, setDashboardInfo] = useState<DashboardInfo | null>(null);
-    const { email, isAuthenticated, role } = useAuth();
-
-    console.log(role)
+    const { email, isAuthenticated } = useAuth();
 
     useEffect(() => {
         const fetchDashboardInfo = async () => {
@@ -55,36 +53,40 @@ const Dashboard: React.FC = () => {
                         <span className="font-semibold">Email:</span>
                         <span>{dashboardInfo.email}</span>
                     </div>
-                    {dashboardInfo.kontak && (
+                    {isLabel && dashboardInfo.kontak && (
                         <div className="flex flex-row gap-2">
                             <span className="font-semibold">Kontak:</span>
                             <span>{dashboardInfo.kontak}</span>
                         </div>
                     )}
-                    <div className="flex flex-row gap-2">
-                        <span className="font-semibold">Kota asal:</span>
-                        <span>{dashboardInfo.kota_asal}</span>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                        <span className="font-semibold">Gender:</span>
-                        <span>{dashboardInfo.gender}</span>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                        <span className="font-semibold">Tempat Lahir:</span>
-                        <span>{dashboardInfo.tempat_lahir}</span>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                        <span className="font-semibold">Tanggal Lahir:</span>
-                        <span>{new Date(dashboardInfo.tanggal_lahir??'').toLocaleDateString()}</span>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                        <span className="font-semibold">Role:</span>
-                        <span>{roles.join(", ")}</span>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                        <span className="font-semibold">Status Langganan:</span>
-                        <span>{dashboardInfo.status_langganan}</span>
-                    </div>
+                    {!isLabel && (
+                        <>
+                            <div className="flex flex-row gap-2">
+                                <span className="font-semibold">Kota asal:</span>
+                                <span>{dashboardInfo.kota_asal}</span>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <span className="font-semibold">Gender:</span>
+                                <span>{dashboardInfo.gender}</span>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <span className="font-semibold">Tempat Lahir:</span>
+                                <span>{dashboardInfo.tempat_lahir}</span>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <span className="font-semibold">Tanggal Lahir:</span>
+                                <span>{new Date(dashboardInfo.tanggal_lahir ?? '').toLocaleDateString()}</span>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <span className="font-semibold">Role:</span>
+                                <span>{roles.join(", ")}</span>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <span className="font-semibold">Status Langganan:</span>
+                                <span>{dashboardInfo.status_langganan}</span>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 

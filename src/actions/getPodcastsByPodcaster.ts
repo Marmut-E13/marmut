@@ -1,10 +1,11 @@
-"use server"
+"use server";
 
 import { sql } from "@vercel/postgres";
 
 export interface PodcastData {
     id: string;
     title: string;
+    description: string;
     releaseDate: string;
     podcasterEmail: string;
 }
@@ -12,18 +13,21 @@ export interface PodcastData {
 export const getPodcastsByPodcaster = async (email: string): Promise<PodcastData[]> => {
     try {
         const { rows } = await sql`
-            SELECT 
+            SELECT
                 KONTEN.id AS id,
                 KONTEN.judul AS title,
-                KONTEN.tanggal_rilis AS releaseDate,
+                EPISODE.deskripsi AS description,
+                TO_CHAR(KONTEN.tanggal_rilis, 'YYYY-MM-DD') AS releaseDate, -- Format the date string
                 PODCASTER.email AS podcasterEmail
-            FROM 
+            FROM
                 PODCAST
-            INNER JOIN 
+                    INNER JOIN
                 KONTEN ON PODCAST.id_konten = KONTEN.id
-            INNER JOIN 
+                    INNER JOIN
                 PODCASTER ON PODCAST.email_podcaster = PODCASTER.email
-            WHERE 
+                    INNER JOIN
+                EPISODE ON PODCAST.id_konten = EPISODE.id_konten_podcast
+            WHERE
                 PODCASTER.email = ${email};
         `;
 
@@ -32,7 +36,8 @@ export const getPodcastsByPodcaster = async (email: string): Promise<PodcastData
         const podcasts: PodcastData[] = rows.map(row => ({
             id: row.id,
             title: row.title,
-            releaseDate: new Date(row.releaseDate).toLocaleDateString(),
+            description: row.description,
+            releaseDate: row.releaseDate, // Keep the date string as is
             podcasterEmail: row.podcasterEmail
         }));
 

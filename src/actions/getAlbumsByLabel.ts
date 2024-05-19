@@ -15,8 +15,8 @@ export const getAlbumsByLabel = async (email: string): Promise<AlbumData[]> => {
             SELECT 
                 ALBUM.id,
                 ALBUM.judul AS title,
-                ALBUM.jumlah_lagu AS numberOfSongs,
-                ALBUM.total_durasi AS totalDuration
+                ALBUM.jumlah_lagu AS "numberOfSongs",
+                ALBUM.total_durasi AS "totalDuration"
             FROM 
                 ALBUM
             INNER JOIN 
@@ -30,8 +30,8 @@ export const getAlbumsByLabel = async (email: string): Promise<AlbumData[]> => {
         const albums: AlbumData[] = rows.map(row => ({
             id: row.id,
             title: row.title,
-            numberOfSongs: row.numberOfSongs,
-            totalDuration: row.totalDuration
+            numberOfSongs: parseInt(row.numberOfSongs) || 0,
+            totalDuration: parseInt(row.totalDuration) || 0
         }));
 
         console.log("Mapped albums:", albums);
